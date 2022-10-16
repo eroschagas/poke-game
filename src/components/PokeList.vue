@@ -3,15 +3,16 @@
   <div class="all-pokemon">
     <div v-for="(item, index) in pokeList" :key="index">
       <div
-        @click="pickPokemon(index)"
+        @click="pickPokemon(item.id)"
         :class="[
           'poke-card',
-          clickedPokemon.includes(index) ? 'poke-card-disabled' : '',
+          pokeMissed(item) ? 'poke-card-disabled' : '',
+          pokeFound(item) ? 'poke-card-found' : '',
         ]"
         v-if="pokeList.length && item.is_default && pokeSprite(index)"
       >
         <!-- <h1>{{ item.name }}</h1> -->
-        <img :src="pokeSprite(index)" alt="" />
+        <img :src="pokeSprite(index)" :alt="item.name" />
       </div>
     </div>
   </div>
@@ -20,42 +21,31 @@
 <script>
 export default {
   name: 'PokeList',
-  props: ['pokeList'],
+  props: [
+    'pokeList',
+    'pickPokemon',
+    'pokeSprite',
+    'chosenPoke',
+    'pokeFound',
+    'pokeMissed',
+  ],
   data() {
-    return {
-      clickedPokemon: [],
-    };
-  },
-  computed: {
-    maxPokemon() {
-      return this.pokeList.filter(
-        (p) =>
-          p.is_default &&
-          JSON.parse(p.pokemon_v2_pokemonsprites[0].sprites).front_default
-      ).length;
-    },
+    return {};
   },
   methods: {
-    pokeSprite(index = 0) {
-      if (this.pokeList.length) {
-        const json = JSON.parse(
-          this.pokeList[index].pokemon_v2_pokemonsprites[0].sprites
-        ).front_default;
-        return json;
-      }
-    },
     teste() {
-      console.log(this.maxPokemon);
       console.log(this.clickedPokemon);
-    },
-    pickPokemon(index) {
-      this.clickedPokemon.push(index);
+      console.log(this.pokeList);
+      console.log(
+        JSON.parse(this.pokeList[0].pokemon_v2_pokemonsprites[0].sprites)
+      );
     },
   },
 };
 </script>
 
 <style lang="sass">
+@import '../variables.sass'
 .all-pokemon
   display: flex
   flex-wrap: wrap
@@ -65,7 +55,7 @@ export default {
 .poke-card
   width: 90px
   height: 90px
-  background: #e4000f
+  background: $pokelistBackground
   border-radius: 50%
   margin: 5px
   display: flex
@@ -73,6 +63,7 @@ export default {
   align-items: center
   transition: all 0.1s ease-in-out
   cursor: pointer
+  box-shadow: 2px 2px 2px $shadow
   img
     width: 70px
     height: 70px
@@ -87,4 +78,14 @@ export default {
 .poke-card-disabled:hover
   background: #727272
   transform: scale(1.0)
+
+.poke-card-found
+  position: relative
+  z-index: 10
+  background: yellow
+  transform: scale(1.5)
+
+.poke-card-found:hover
+  background: yellow
+  transform: scale(1.5)
 </style>
