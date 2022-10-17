@@ -9,7 +9,11 @@
     </div>
     <div class="chosen-stats">
       <div class="chosen-stats-field chosen-type">
-        <div class="chosen-type-1" v-if="chosenPoke.pokemon_v2_pokemontypes">
+        <div
+          class="chosen-type-show"
+          v-if="chosenPoke.pokemon_v2_pokemontypes && type1"
+        >
+          <div class="chosen-type-hidden fade-out"></div>
           <img
             :src="
               typeSprite(
@@ -19,13 +23,16 @@
             alt="Secret Type"
           />
         </div>
+        <div v-else class="chosen-type-hidden"></div>
         <div
-          class="chosen-type-2"
+          class="chosen-type-show"
           v-if="
             chosenPoke.pokemon_v2_pokemontypes &&
-            chosenPoke.pokemon_v2_pokemontypes.length == 2
+            chosenPoke.pokemon_v2_pokemontypes.length == 2 &&
+            type2
           "
         >
+          <div class="chosen-type-hidden fade-out"></div>
           <img
             :src="
               typeSprite(
@@ -35,15 +42,42 @@
             alt="Secret Type"
           />
         </div>
+        <div
+          v-else-if="
+            chosenPoke.pokemon_v2_pokemontypes &&
+            chosenPoke.pokemon_v2_pokemontypes.length == 2
+          "
+          class="chosen-type-hidden"
+        ></div>
       </div>
       <div class="chosen-stats-field chosen-gen">
-        <p>GEN {{ chosenPoke.pokemon_v2_pokemonspecy.generation_id }}</p>
+        <div>
+          <p>GEN</p>
+        </div>
+        <div v-if="findGen()" class="chosen-gen-number fade-in">
+          <p>
+            {{ chosenPoke.pokemon_v2_pokemonspecy.generation_id }}
+          </p>
+        </div>
+        <div v-else class="chosen-number"></div>
       </div>
       <div class="chosen-stats-field chosen-weight">
-        <p>{{ chosenPoke.weight / 10 }}kg</p>
+        <div>
+          <p>WEIGHT</p>
+        </div>
+        <div v-if="findWeigth()" class="chosen-weight-number fade-in">
+          <p>{{ chosenPoke.weight / 10 }}kg</p>
+        </div>
+        <div v-else class="chosen-number"></div>
       </div>
       <div class="chosen-stats-field chosen-height">
-        <p>{{ chosenPoke.height / 10 }}m</p>
+        <div>
+          <p>HEIGHT</p>
+        </div>
+        <div v-if="findHeight()" class="chosen-height-number fade-in">
+          <p>{{ chosenPoke.height / 10 }}m</p>
+        </div>
+        <div v-else class="chosen-number"></div>
       </div>
     </div>
   </div>
@@ -63,12 +97,69 @@ export default {
   ],
   data() {
     return {
-      refresh: 0,
+      type1: false,
+      type2: false,
     };
+  },
+  watch: {
+    clickedPokemon: {
+      deep: true,
+      handler() {
+        this.findType();
+        this.findGen();
+      },
+    },
   },
   computed: {
     testando() {
       return require('../assets/typeSprite/' + 'Bug' + '.svg');
+    },
+  },
+  methods: {
+    findType() {
+      let clicked = this.clickedPokemon
+        .map((p) =>
+          p.pokemon_v2_pokemontypes.map((p) => p.pokemon_v2_type.name)
+        )
+        .flat();
+      let chosen = this.chosenPoke.pokemon_v2_pokemontypes.map(
+        (p) => p.pokemon_v2_type.name
+      );
+      if (chosen.length > 1 && clicked.includes(chosen[1])) {
+        this.type2 = true;
+      }
+      if (clicked.includes(chosen[0])) {
+        this.type1 = true;
+      }
+    },
+    findGen() {
+      let clicked = this.clickedPokemon.map(
+        (p) => p.pokemon_v2_pokemonspecy.generation_id
+      );
+      let chosen = this.chosenPoke.pokemon_v2_pokemonspecy.generation_id;
+      if (clicked.includes(chosen)) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    findWeigth() {
+      let clicked = this.clickedPokemon.map((p) => p.weight);
+      let chosen = this.chosenPoke.weight;
+      if (clicked.includes(chosen)) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    findHeight() {
+      let clicked = this.clickedPokemon.map((p) => p.height);
+      let chosen = this.chosenPoke.height;
+      if (clicked.includes(chosen)) {
+        return true;
+      } else {
+        return false;
+      }
     },
   },
 };
@@ -77,9 +168,21 @@ export default {
 <style lang="sass">
 @import '../variables.sass'
 
+@keyframes fadeIn
+  0%
+    opacity: 0
+  100%
+    opacity: 1
+
+@keyframes fadeOut
+  0%
+    opacity: 1
+  100%
+    opacity: 0
+
 .chosen-box
   margin: 20px
-  width: 400px
+  width: 450px
   border-radius: 25px
   background: $chosenBackground
   display: flex
@@ -97,6 +200,7 @@ export default {
     margin: 5px
     font-family: $pixel
     font-weight: normal
+    text-shadow: 2px 2px 2px $shadow
   img
     width: 100px
     height: auto
@@ -110,20 +214,26 @@ export default {
   align-items: center
   justify-content: center
   width: 120px
-  .chosen-type-1
+  .chosen-type-show
     height: 30px
     width: 30px
     margin: 0 10px
     img
       height: 30px
       width: 30px
-  .chosen-type-2
+      animation: fadeIn 0.5s forwards ease-out
+
+  .chosen-type-hidden
     height: 30px
     width: 30px
     margin: 0 10px
-    img
-      height: 30px
-      width: 30px
+    background: $shadow
+    border-radius: 50%
+  .fade-out
+    position: absolute
+    margin: 0
+    animation: fadeOut 0.5s forwards ease-out
+
 
 .chosen-stats-field
   background: $chosenBackgroundFields
@@ -142,10 +252,30 @@ export default {
 
 .chosen-gen
   width: 75px
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
 
 .chosen-weight
-  width: 75px
+  width: 85px
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+
 
 .chosen-height
-  width: 60px
+  width: 85px
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+
+.chosen-number
+  height: 20px
+
+
+.fade-in
+  animation: fadeIn 0.5s forwards ease-out
 </style>

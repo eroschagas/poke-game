@@ -1,4 +1,6 @@
 <template>
+  <div class="console" @click="teste">console.log</div>
+
   <PokeChosen
     :pokeList="pokeList"
     :randomPokemon="randomPokemon"
@@ -57,6 +59,14 @@ export default {
     },
   },
   methods: {
+    teste() {
+      console.log(this.clickedPokemon);
+      console.log(this.pokeList);
+      console.log(
+        JSON.parse(this.pokeList[0].pokemon_v2_pokemonsprites[0].sprites)
+      );
+    },
+
     async getPokemon() {
       try {
         const result = await axios({
@@ -126,19 +136,13 @@ export default {
       this.clickedPokemon.push(index);
     },
     pokeFound(pick) {
-      if (
-        this.chosenPoke.id == pick.id &&
-        this.clickedPokemon.includes(pick.id)
-      ) {
+      if (this.chosenPoke == pick && this.clickedPokemon.includes(pick)) {
         return true;
       }
       return false;
     },
     pokeMissed(pick) {
-      if (
-        this.chosenPoke.id != pick.id &&
-        this.clickedPokemon.includes(pick.id)
-      ) {
+      if (this.chosenPoke != pick && this.clickedPokemon.includes(pick)) {
         return true;
       }
       return false;
@@ -147,4 +151,8 @@ export default {
 };
 </script>
 
-<style lang="sass"></style>
+<style lang="sass">
+.console
+  position: fixed
+  cursor: pointer
+</style>

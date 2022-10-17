@@ -1,9 +1,8 @@
 <template>
-  <div @click="teste">console.log</div>
   <div class="all-pokemon">
     <div v-for="(item, index) in pokeList" :key="index">
       <div
-        @click="pickPokemon(item.id)"
+        @click="pickPokemon(item)"
         :class="[
           'poke-card',
           pokeMissed(item) ? 'poke-card-disabled' : '',
@@ -29,18 +28,6 @@ export default {
     'pokeFound',
     'pokeMissed',
   ],
-  data() {
-    return {};
-  },
-  methods: {
-    teste() {
-      console.log(this.clickedPokemon);
-      console.log(this.pokeList);
-      console.log(
-        JSON.parse(this.pokeList[0].pokemon_v2_pokemonsprites[0].sprites)
-      );
-    },
-  },
 };
 </script>
 
@@ -49,8 +36,11 @@ export default {
 .all-pokemon
   display: flex
   flex-wrap: wrap
-  margin: 10px
+  margin: 0 10px
   justify-content: center
+  height: calc( 100vh - 261px )
+  padding-top: 10px
+  overflow-y: scroll
 
 .poke-card
   width: 90px
@@ -70,22 +60,22 @@ export default {
 
 .poke-card:hover
   transform: scale(1.2)
-  background: #ff1e2d
+  background: $pokelistBackgroundHover
 
 .poke-card-disabled
-  background: #727272
+  background: $pokelistBackgroundFail
 
 .poke-card-disabled:hover
-  background: #727272
+  background: $pokelistBackgroundFail
   transform: scale(1.0)
 
 .poke-card-found
   position: relative
   z-index: 10
-  background: yellow
+  background: $pokelistBackgroundWin
   transform: scale(1.5)
 
 .poke-card-found:hover
-  background: yellow
+  background: $pokelistBackgroundWin
   transform: scale(1.5)
 </style>
