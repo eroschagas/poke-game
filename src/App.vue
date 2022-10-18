@@ -9,13 +9,14 @@
     :upperCase="upperCase"
     :typeSprite="typeSprite"
     :chosenPoke="chosenPoke"
+    :pokeFound="pokeFound"
   />
   <PokeList
     :pokeList="pokeList"
     :pickPokemon="pickPokemon"
     :pokeSprite="pokeSprite"
     :chosenPoke="chosenPoke"
-    :pokeFound="pokeFound"
+    :pokeFind="pokeFind"
     :pokeMissed="pokeMissed"
   />
 </template>
@@ -35,6 +36,7 @@ export default {
     return {
       pokeList: [],
       clickedPokemon: [],
+      pokeFound: false,
     };
   },
   async created() {
@@ -135,10 +137,12 @@ export default {
     pickPokemon(index) {
       this.clickedPokemon.push(index);
     },
-    pokeFound(pick) {
+    pokeFind(pick) {
       if (this.chosenPoke == pick && this.clickedPokemon.includes(pick)) {
+        this.pokeFound = true;
         return true;
       }
+      this.pokeFound = false;
       return false;
     },
     pokeMissed(pick) {

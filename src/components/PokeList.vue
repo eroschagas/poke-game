@@ -6,7 +6,7 @@
         :class="[
           'poke-card',
           pokeMissed(item) ? 'poke-card-disabled' : '',
-          pokeFound(item) ? 'poke-card-found' : '',
+          pokeFind(item) ? 'poke-card-found' : '',
         ]"
         v-if="pokeList.length && item.is_default && pokeSprite(index)"
       >
@@ -25,7 +25,7 @@ export default {
     'pickPokemon',
     'pokeSprite',
     'chosenPoke',
-    'pokeFound',
+    'pokeFind',
     'pokeMissed',
   ],
 };
@@ -38,7 +38,7 @@ export default {
   flex-wrap: wrap
   margin: 0 10px
   justify-content: center
-  height: calc( 100vh - 261px )
+  height: 100vh
   padding-top: 10px
   overflow-y: scroll
 

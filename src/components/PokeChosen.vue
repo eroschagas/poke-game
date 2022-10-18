@@ -1,6 +1,6 @@
 <template>
   <div v-if="chosenPoke" class="chosen-box">
-    <div class="chosen-title">
+    <div v-if="true" class="chosen-title">
       <h1>{{ upperCase(chosenPoke.name) }}</h1>
       <img
         :src="pokeSprite(this.randomPokemon, 'other', 'official-artwork')"
@@ -9,52 +9,54 @@
     </div>
     <div class="chosen-stats">
       <div class="chosen-stats-field chosen-type">
-        <div
-          class="chosen-type-show"
-          v-if="chosenPoke.pokemon_v2_pokemontypes && type1"
-        >
-          <div class="chosen-type-hidden fade-out"></div>
-          <img
-            :src="
-              typeSprite(
-                chosenPoke.pokemon_v2_pokemontypes[0].pokemon_v2_type.name
-              )
-            "
-            alt="Secret Type"
-          />
+        <div>
+          <div
+            class="chosen-type-show fadeIn-swirl-grow"
+            v-if="chosenPoke.pokemon_v2_pokemontypes && type1"
+          >
+            <img
+              :src="
+                typeSprite(
+                  chosenPoke.pokemon_v2_pokemontypes[0].pokemon_v2_type.name
+                )
+              "
+              alt="Secret Type"
+            />
+          </div>
+          <div class="chosen-type-hidden"></div>
         </div>
-        <div v-else class="chosen-type-hidden"></div>
-        <div
-          class="chosen-type-show"
-          v-if="
-            chosenPoke.pokemon_v2_pokemontypes &&
-            chosenPoke.pokemon_v2_pokemontypes.length == 2 &&
-            type2
-          "
-        >
-          <div class="chosen-type-hidden fade-out"></div>
-          <img
-            :src="
-              typeSprite(
-                chosenPoke.pokemon_v2_pokemontypes[1].pokemon_v2_type.name
-              )
+        <div>
+          <div
+            class="chosen-type-show fadeIn-swirl-grow"
+            v-if="
+              chosenPoke.pokemon_v2_pokemontypes &&
+              chosenPoke.pokemon_v2_pokemontypes.length == 2 &&
+              type2
             "
-            alt="Secret Type"
-          />
+          >
+            <img
+              :src="
+                typeSprite(
+                  chosenPoke.pokemon_v2_pokemontypes[1].pokemon_v2_type.name
+                )
+              "
+              alt="Secret Type"
+            />
+          </div>
+          <div
+            v-if="
+              chosenPoke.pokemon_v2_pokemontypes &&
+              chosenPoke.pokemon_v2_pokemontypes.length == 2
+            "
+            class="chosen-type-hidden"
+          ></div>
         </div>
-        <div
-          v-else-if="
-            chosenPoke.pokemon_v2_pokemontypes &&
-            chosenPoke.pokemon_v2_pokemontypes.length == 2
-          "
-          class="chosen-type-hidden"
-        ></div>
       </div>
       <div class="chosen-stats-field chosen-gen">
         <div>
           <p>GEN</p>
         </div>
-        <div v-if="findGen()" class="chosen-gen-number fade-in">
+        <div v-if="findGen()" class="chosen-gen-number fadeIn-grow">
           <p>
             {{ chosenPoke.pokemon_v2_pokemonspecy.generation_id }}
           </p>
@@ -65,7 +67,7 @@
         <div>
           <p>WEIGHT</p>
         </div>
-        <div v-if="findWeigth()" class="chosen-weight-number fade-in">
+        <div v-if="findWeigth()" class="chosen-weight-number fadeIn-grow">
           <p>{{ chosenPoke.weight / 10 }}kg</p>
         </div>
         <div v-else class="chosen-number"></div>
@@ -74,7 +76,7 @@
         <div>
           <p>HEIGHT</p>
         </div>
-        <div v-if="findHeight()" class="chosen-height-number fade-in">
+        <div v-if="findHeight()" class="chosen-height-number fadeIn-grow">
           <p>{{ chosenPoke.height / 10 }}m</p>
         </div>
         <div v-else class="chosen-number"></div>
@@ -94,6 +96,7 @@ export default {
     'upperCase',
     'typeSprite',
     'chosenPoke',
+    'pokeFound',
   ],
   data() {
     return {
@@ -168,18 +171,6 @@ export default {
 <style lang="sass">
 @import '../variables.sass'
 
-@keyframes fadeIn
-  0%
-    opacity: 0
-  100%
-    opacity: 1
-
-@keyframes fadeOut
-  0%
-    opacity: 1
-  100%
-    opacity: 0
-
 .chosen-box
   margin: 20px
   width: 450px
@@ -218,10 +209,10 @@ export default {
     height: 30px
     width: 30px
     margin: 0 10px
+    position: absolute
     img
       height: 30px
       width: 30px
-      animation: fadeIn 0.5s forwards ease-out
 
   .chosen-type-hidden
     height: 30px
@@ -229,11 +220,6 @@ export default {
     margin: 0 10px
     background: $shadow
     border-radius: 50%
-  .fade-out
-    position: absolute
-    margin: 0
-    animation: fadeOut 0.5s forwards ease-out
-
 
 .chosen-stats-field
   background: $chosenBackgroundFields
@@ -274,8 +260,4 @@ export default {
 
 .chosen-number
   height: 20px
-
-
-.fade-in
-  animation: fadeIn 0.5s forwards ease-out
 </style>
