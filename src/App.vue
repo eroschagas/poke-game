@@ -1,16 +1,19 @@
 <template>
   <div class="console" @click="teste">console.log</div>
 
-  <PokeChosen
-    :pokeList="pokeList"
-    :randomPokemon="randomPokemon"
-    :clickedPokemon="clickedPokemon"
-    :pokeSprite="pokeSprite"
-    :upperCase="upperCase"
-    :typeSprite="typeSprite"
-    :chosenPoke="chosenPoke"
-    :pokeFound="pokeFound"
-  />
+  <div class="section-1">
+    <PokeChosen
+      :pokeList="pokeList"
+      :randomPokemon="randomPokemon"
+      :clickedPokemon="clickedPokemon"
+      :pokeSprite="pokeSprite"
+      :upperCase="upperCase"
+      :typeSprite="typeSprite"
+      :chosenPoke="chosenPoke"
+      :pokeFound="pokeFound"
+    />
+    <PokePick :clickedPokemon="clickedPokemon" :pokeSprite="pokeSprite" />
+  </div>
   <PokeList
     :pokeList="pokeList"
     :pickPokemon="pickPokemon"
@@ -25,12 +28,14 @@
 import PokeList from './components/PokeList.vue';
 import PokeChosen from './components/PokeChosen.vue';
 import axios from 'axios';
+import PokePick from './components/PokePick.vue';
 
 export default {
   name: 'App',
   components: {
     PokeList,
     PokeChosen,
+    PokePick,
   },
   data() {
     return {
@@ -42,6 +47,18 @@ export default {
   async created() {
     await this.getPokemon();
   },
+  watch: {
+    clickedPokemon: {
+      deep: true,
+      handler() {
+        if (this.clickedPokemon.includes(this.chosenPoke)) {
+          this.pokeFound = true;
+        } else {
+          this.pokeFound = false;
+        }
+      },
+    },
+  },
   computed: {
     maxPokemon() {
       return this.pokeList.filter(
@@ -51,7 +68,8 @@ export default {
       ).length;
     },
     randomPokemon() {
-      return Math.floor(Math.random() * this.maxPokemon);
+      // return Math.floor(Math.random() * this.maxPokemon);
+      return 0;
     },
     chosenPoke() {
       if (this.pokeList) {
@@ -134,15 +152,15 @@ export default {
     upperCase(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
     },
-    pickPokemon(index) {
-      this.clickedPokemon.push(index);
+    pickPokemon(item) {
+      if (!this.pokeMissed(item) && !this.pokeFound) {
+        this.clickedPokemon.push(item);
+      }
     },
     pokeFind(pick) {
       if (this.chosenPoke == pick && this.clickedPokemon.includes(pick)) {
-        this.pokeFound = true;
         return true;
       }
-      this.pokeFound = false;
       return false;
     },
     pokeMissed(pick) {
@@ -159,4 +177,7 @@ export default {
 .console
   position: fixed
   cursor: pointer
+
+.section-1
+  display: flex
 </style>

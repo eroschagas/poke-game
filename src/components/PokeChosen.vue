@@ -113,11 +113,6 @@ export default {
       },
     },
   },
-  computed: {
-    testando() {
-      return require('../assets/typeSprite/' + 'Bug' + '.svg');
-    },
-  },
   methods: {
     findType() {
       let clicked = this.clickedPokemon
