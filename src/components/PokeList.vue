@@ -14,7 +14,6 @@
         <img
           :src="pokeSprite(index)"
           :alt="item.name"
-          @load="onLoad(item.id)"
         />
       </div>
     </div>
@@ -36,11 +35,6 @@ export default {
     return {
       isLoaded: [],
     };
-  },
-  methods: {
-    onLoad(x) {
-      console.log(x);
-    },
   },
 };
 </script>

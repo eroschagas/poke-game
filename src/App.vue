@@ -14,8 +14,8 @@
     />
     <PokePick :clickedPokemon="clickedPokemon" :pokeSprite="pokeSprite" />
   </div>
-  <LoadingIcon />
   <PokeList
+    v-if="!loadingList"
     :pokeList="pokeList"
     :pickPokemon="pickPokemon"
     :pokeSprite="pokeSprite"
@@ -23,6 +23,7 @@
     :pokeFind="pokeFind"
     :pokeMissed="pokeMissed"
   />
+  <LoadingIcon v-else />
 </template>
 
 <script>
@@ -45,6 +46,7 @@ export default {
       pokeList: [],
       clickedPokemon: [],
       pokeFound: false,
+      loadingList: true,
     };
   },
   async created() {
@@ -91,6 +93,7 @@ export default {
     },
 
     async getPokemon() {
+      this.loadingList = true;
       try {
         const result = await axios({
           method: 'POST',
@@ -122,6 +125,7 @@ export default {
           },
         });
         this.pokeList = result.data.data.pokemon_v2_pokemon;
+        this.loadingList = false;
       } catch (error) {
         console.error(error);
       }
