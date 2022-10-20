@@ -83,83 +83,86 @@
       </div>
     </div>
   </div>
+  <div class="chosen-box pokechosen-loading" v-else>
+    <LoadingIcon class="chosen-loading" />
+  </div>
 </template>
 
 <script>
+import LoadingIcon from './LoadingIcon.vue';
 export default {
-  name: 'PokeChosen',
-  props: [
-    'pokeList',
-    'clickedPokemon',
-    'randomPokemon',
-    'pokeSprite',
-    'upperCase',
-    'typeSprite',
-    'chosenPoke',
-    'pokeFound',
-  ],
-  data() {
-    return {
-      type1: false,
-      type2: false,
-    };
-  },
-  watch: {
-    clickedPokemon: {
-      deep: true,
-      handler() {
-        this.findType();
-        this.findGen();
-      },
+    name: "PokeChosen",
+    props: [
+        "pokeList",
+        "clickedPokemon",
+        "randomPokemon",
+        "pokeSprite",
+        "upperCase",
+        "typeSprite",
+        "chosenPoke",
+        "pokeFound",
+        "loadingList",
+    ],
+    data() {
+        return {
+            type1: false,
+            type2: false,
+        };
     },
-  },
-  methods: {
-    findType() {
-      let clicked = this.clickedPokemon
-        .map((p) =>
-          p.pokemon_v2_pokemontypes.map((p) => p.pokemon_v2_type.name)
-        )
-        .flat();
-      let chosen = this.chosenPoke.pokemon_v2_pokemontypes.map(
-        (p) => p.pokemon_v2_type.name
-      );
-      if (chosen.length > 1 && clicked.includes(chosen[1])) {
-        this.type2 = true;
-      }
-      if (clicked.includes(chosen[0])) {
-        this.type1 = true;
-      }
+    watch: {
+        clickedPokemon: {
+            deep: true,
+            handler() {
+                this.findType();
+                this.findGen();
+            },
+        },
     },
-    findGen() {
-      let clicked = this.clickedPokemon.map(
-        (p) => p.pokemon_v2_pokemonspecy.generation_id
-      );
-      let chosen = this.chosenPoke.pokemon_v2_pokemonspecy.generation_id;
-      if (clicked.includes(chosen)) {
-        return true;
-      } else {
-        return false;
-      }
+    methods: {
+        findType() {
+            let clicked = this.clickedPokemon
+                .map((p) => p.pokemon_v2_pokemontypes.map((p) => p.pokemon_v2_type.name))
+                .flat();
+            let chosen = this.chosenPoke.pokemon_v2_pokemontypes.map((p) => p.pokemon_v2_type.name);
+            if (chosen.length > 1 && clicked.includes(chosen[1])) {
+                this.type2 = true;
+            }
+            if (clicked.includes(chosen[0])) {
+                this.type1 = true;
+            }
+        },
+        findGen() {
+            let clicked = this.clickedPokemon.map((p) => p.pokemon_v2_pokemonspecy.generation_id);
+            let chosen = this.chosenPoke.pokemon_v2_pokemonspecy.generation_id;
+            if (clicked.includes(chosen)) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        },
+        findWeigth() {
+            let clicked = this.clickedPokemon.map((p) => p.weight);
+            let chosen = this.chosenPoke.weight;
+            if (clicked.includes(chosen)) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        },
+        findHeight() {
+            let clicked = this.clickedPokemon.map((p) => p.height);
+            let chosen = this.chosenPoke.height;
+            if (clicked.includes(chosen)) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        },
     },
-    findWeigth() {
-      let clicked = this.clickedPokemon.map((p) => p.weight);
-      let chosen = this.chosenPoke.weight;
-      if (clicked.includes(chosen)) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-    findHeight() {
-      let clicked = this.clickedPokemon.map((p) => p.height);
-      let chosen = this.chosenPoke.height;
-      if (clicked.includes(chosen)) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-  },
+    components: { LoadingIcon }
 };
 </script>
 
@@ -255,4 +258,14 @@ export default {
 
 .chosen-number
   height: 20px
+
+.pokechosen-loading
+  display: flex
+  justify-content: center
+  align-items: center
+
+.chosen-loading
+  height: 50px
+  width: 50px
+
 </style>

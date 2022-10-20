@@ -43,6 +43,6 @@ export default {
 
 <style lang="sass">
 .loading
-  height: 30px
-  width: 30px
+  // min-height: 30px
+  // min-width: 30px
 </style>

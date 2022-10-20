@@ -1,26 +1,29 @@
 <template>
-  <div class="all-pokemon">
-    <div v-for="(item, index) in pokeList" :key="index">
-      <div
-        @click="pickPokemon(item)"
-        :class="[
-          'poke-card',
-          pokeMissed(item) ? 'poke-card-disabled' : '',
-          pokeFind(item) ? 'poke-card-found' : '',
-        ]"
-        v-if="pokeList.length && item.is_default && pokeSprite(index)"
-      >
-        <!-- <h1>{{ item.name }}</h1> -->
-        <img
-          :src="pokeSprite(index)"
-          :alt="item.name"
-        />
+  <div>
+    <div class="all-pokemon" v-if="!loadingList">
+      <div v-for="(item, index) in pokeList" :key="index">
+        <div
+          @click="pickPokemon(item)"
+          :class="[
+            'poke-card',
+            pokeMissed(item) ? 'poke-card-disabled' : '',
+            pokeFind(item) ? 'poke-card-found' : '',
+          ]"
+          v-if="pokeList.length && item.is_default && pokeSprite(index)"
+        >
+          <!-- <h1>{{ item.name }}</h1> -->
+          <img :src="pokeSprite(index)" :alt="item.name" />
+        </div>
       </div>
+    </div>
+    <div class="all-pokemon pokelist-loading" v-else>
+      <LoadingIcon class="list-loading" />
     </div>
   </div>
 </template>
 
 <script>
+import LoadingIcon from './LoadingIcon.vue';
 export default {
   name: 'PokeList',
   props: [
@@ -30,25 +33,29 @@ export default {
     'chosenPoke',
     'pokeFind',
     'pokeMissed',
+    'loadingList',
   ],
   data() {
     return {
       isLoaded: [],
     };
   },
+  components: { LoadingIcon },
 };
 </script>
 
 <style lang="sass">
 @import '../variables.sass'
+
 .all-pokemon
-  display: flex
-  flex-wrap: wrap
   margin: 0 10px
-  justify-content: center
   height: 100vh
   padding-top: 10px
+  height: 50vh
   overflow-y: scroll
+  display: flex
+  flex-wrap: wrap
+  justify-content: center
 
 .poke-card
   width: 90px
@@ -86,4 +93,14 @@ export default {
 .poke-card-found:hover
   background: $pokelistBackgroundWin
   transform: scale(1.5)
+
+.pokelist-loading
+  display: flex
+  justify-content: center
+  align-items: center
+  background: $shadow
+
+.list-loading
+  height: 50px
+  width: 50px
 </style>

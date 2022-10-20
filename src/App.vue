@@ -3,6 +3,7 @@
 
   <div class="section-1">
     <PokeChosen
+      :loadingList="loadingList"
       :pokeList="pokeList"
       :randomPokemon="randomPokemon"
       :clickedPokemon="clickedPokemon"
@@ -15,7 +16,7 @@
     <PokePick :clickedPokemon="clickedPokemon" :pokeSprite="pokeSprite" />
   </div>
   <PokeList
-    v-if="!loadingList"
+    :loadingList="loadingList"
     :pokeList="pokeList"
     :pickPokemon="pickPokemon"
     :pokeSprite="pokeSprite"
@@ -23,7 +24,6 @@
     :pokeFind="pokeFind"
     :pokeMissed="pokeMissed"
   />
-  <LoadingIcon v-else />
 </template>
 
 <script>
@@ -31,7 +31,6 @@ import PokeList from './components/PokeList.vue';
 import PokeChosen from './components/PokeChosen.vue';
 import axios from 'axios';
 import PokePick from './components/PokePick.vue';
-import LoadingIcon from './components/LoadingIcon.vue';
 
 export default {
   name: 'App',
@@ -39,7 +38,6 @@ export default {
     PokeList,
     PokeChosen,
     PokePick,
-    LoadingIcon,
   },
   data() {
     return {
