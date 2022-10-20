@@ -11,7 +11,11 @@
         v-if="pokeList.length && item.is_default && pokeSprite(index)"
       >
         <!-- <h1>{{ item.name }}</h1> -->
-        <img :src="pokeSprite(index)" :alt="item.name" />
+        <img
+          :src="pokeSprite(index)"
+          :alt="item.name"
+          @load="onLoad(item.id)"
+        />
       </div>
     </div>
   </div>
@@ -28,6 +32,16 @@ export default {
     'pokeFind',
     'pokeMissed',
   ],
+  data() {
+    return {
+      isLoaded: [],
+    };
+  },
+  methods: {
+    onLoad(x) {
+      console.log(x);
+    },
+  },
 };
 </script>
 

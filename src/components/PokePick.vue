@@ -1,10 +1,11 @@
 <template>
-  <div class="pick-section">
-    <div
-      v-for="(item, index) in clickedPokemon"
-      :key="index"
-    >
-      <div :id="item.id" class="pick-card fadeIn-slideLeft">
+  <div ref="teste" class="pick-section">
+    <div v-for="(item, index) in clickedPokemon" :key="index">
+      <div
+        :id="item.id"
+        :ref="'card-' + item.id"
+        class="pick-card fadeIn-slideLeft"
+      >
         <div class="pick-value pick-name">{{ item.name }}</div>
         <div class="pick-sprite">
           <img
@@ -38,6 +39,20 @@ export default {
       return this.clickedPokemon.length;
     },
   },
+  watch: {
+    clickedPokemon: {
+      deep: true,
+      handler() {
+        this.$nextTick(() => {
+          var lastCardHeight =
+            this.$refs[
+              'card-' + this.clickedPokemon[this.clickedPokemon.length - 1].id
+            ][0].offsetHeight;
+          this.$refs.teste.scrollTo(0, this.clickedPokemon.length * lastCardHeight);
+        });
+      },
+    },
+  },
 };
 </script>
 
@@ -45,8 +60,8 @@ export default {
 @import '../variables.sass'
 
 .pick-section
-  height: 220px
-  overflow-y: scroll
+  height: 256px
+  overflow-y: hidden
   overflow-x: hidden
   scroll-behavior: smooth
   margin: 20px

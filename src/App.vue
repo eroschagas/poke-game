@@ -14,6 +14,7 @@
     />
     <PokePick :clickedPokemon="clickedPokemon" :pokeSprite="pokeSprite" />
   </div>
+  <LoadingIcon />
   <PokeList
     :pokeList="pokeList"
     :pickPokemon="pickPokemon"
@@ -29,6 +30,7 @@ import PokeList from './components/PokeList.vue';
 import PokeChosen from './components/PokeChosen.vue';
 import axios from 'axios';
 import PokePick from './components/PokePick.vue';
+import LoadingIcon from './components/LoadingIcon.vue';
 
 export default {
   name: 'App',
@@ -36,6 +38,7 @@ export default {
     PokeList,
     PokeChosen,
     PokePick,
+    LoadingIcon,
   },
   data() {
     return {

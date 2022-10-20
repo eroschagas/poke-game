@@ -1,6 +1,6 @@
 <template>
   <div v-if="chosenPoke" class="chosen-box">
-    <div v-if="true" class="chosen-title">
+    <div v-if="pokeFound" class="chosen-title">
       <h1>{{ upperCase(chosenPoke.name) }}</h1>
       <img
         :src="pokeSprite(this.randomPokemon, 'other', 'official-artwork')"
@@ -167,6 +167,7 @@ export default {
 @import '../variables.sass'
 
 .chosen-box
+  height: fit-content
   margin: 20px
   width: 450px
   border-radius: 25px
@@ -176,7 +177,6 @@ export default {
   justify-content: center
   align-items: center
   box-shadow: 2px 2px 2px $shadow
-
 
 .chosen-title
   display: flex
