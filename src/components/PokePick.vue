@@ -16,9 +16,27 @@
         <div class="pick-value">
           <p>{{ item.weight / 10 }}KG</p>
         </div>
+        <ion-icon
+          v-if="item.weight < chosenPoke.weight"
+          name="arrow-up-circle-outline"
+        ></ion-icon>
+        <ion-icon
+          v-else-if="item.weight > chosenPoke.weight"
+          name="arrow-down-circle-outline"
+        ></ion-icon>
+        <ion-icon v-else name="checkmark-circle-outline"></ion-icon>
         <div class="pick-value">
           <p>{{ item.height / 10 }}M</p>
         </div>
+        <ion-icon
+          v-if="item.height < chosenPoke.height"
+          name="arrow-up-circle-outline"
+        ></ion-icon>
+        <ion-icon
+          v-else-if="item.height > chosenPoke.height"
+          name="arrow-down-circle-outline"
+        ></ion-icon>
+        <ion-icon v-else name="checkmark-circle-outline"></ion-icon>
       </div>
     </div>
   </div>
@@ -27,7 +45,7 @@
 <script>
 export default {
   name: 'PokePick',
-  props: ['clickedPokemon', 'pokeSprite'],
+  props: ['clickedPokemon', 'pokeSprite', 'chosenPoke'],
   computed: {
     listMin() {
       if (this.clickedPokemon.length >= 4) {
@@ -48,7 +66,10 @@ export default {
             this.$refs[
               'card-' + this.clickedPokemon[this.clickedPokemon.length - 1].id
             ][0].offsetHeight;
-          this.$refs.teste.scrollTo(0, this.clickedPokemon.length * lastCardHeight);
+          this.$refs.teste.scrollTo(
+            0,
+            this.clickedPokemon.length * lastCardHeight
+          );
         });
       },
     },
@@ -77,10 +98,10 @@ export default {
     height: 40px
     width: 40px
 .pick-value
-  margin: 10px
-  width: 60px
+  margin: 10px 0 10px 10px
+  width: 70px
   p
-    text-align: center
+    text-align: right
     font-family: $pixel
 
 .pick-name

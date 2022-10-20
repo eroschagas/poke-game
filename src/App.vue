@@ -13,7 +13,11 @@
       :chosenPoke="chosenPoke"
       :pokeFound="pokeFound"
     />
-    <PokePick :clickedPokemon="clickedPokemon" :pokeSprite="pokeSprite" />
+    <PokePick
+      :clickedPokemon="clickedPokemon"
+      :pokeSprite="pokeSprite"
+      :chosenPoke="chosenPoke"
+    />
   </div>
   <PokeList
     :loadingList="loadingList"
