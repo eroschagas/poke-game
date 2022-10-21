@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="all-pokemon pokelist-loading" v-else>
-      <LoadingIcon class="list-loading" />
+      <LoadingIcon speed="2" size="30" />
     </div>
   </div>
 </template>
