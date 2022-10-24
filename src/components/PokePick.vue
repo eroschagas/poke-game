@@ -15,28 +15,29 @@
         </div>
         <div class="pick-value">
           <p>{{ item.weight / 10 }}KG</p>
+          <ion-icon
+            v-if="item.weight < chosenPoke.weight"
+            name="arrow-up-circle-outline"
+          ></ion-icon>
+          <ion-icon
+            v-else-if="item.weight > chosenPoke.weight"
+            name="arrow-down-circle-outline"
+          ></ion-icon>
+          <ion-icon v-else name="checkmark-circle-outline"></ion-icon>
         </div>
-        <ion-icon
-          v-if="item.weight < chosenPoke.weight"
-          name="arrow-up-circle-outline"
-        ></ion-icon>
-        <ion-icon
-          v-else-if="item.weight > chosenPoke.weight"
-          name="arrow-down-circle-outline"
-        ></ion-icon>
-        <ion-icon v-else name="checkmark-circle-outline"></ion-icon>
+
         <div class="pick-value">
           <p>{{ item.height / 10 }}M</p>
+          <ion-icon
+            v-if="item.height < chosenPoke.height"
+            name="arrow-up-circle-outline"
+          ></ion-icon>
+          <ion-icon
+            v-else-if="item.height > chosenPoke.height"
+            name="arrow-down-circle-outline"
+          ></ion-icon>
+          <ion-icon v-else name="checkmark-circle-outline"></ion-icon>
         </div>
-        <ion-icon
-          v-if="item.height < chosenPoke.height"
-          name="arrow-up-circle-outline"
-        ></ion-icon>
-        <ion-icon
-          v-else-if="item.height > chosenPoke.height"
-          name="arrow-down-circle-outline"
-        ></ion-icon>
-        <ion-icon v-else name="checkmark-circle-outline"></ion-icon>
       </div>
     </div>
   </div>
@@ -99,7 +100,13 @@ export default {
     width: 40px
 .pick-value
   margin: 10px 0 10px 10px
-  width: 70px
+  width: 90px
+  height: 64px
+  background: $shadow
+  display: flex
+  justify-content: center
+  align-items: center
+  border-radius: 32px
   p
     text-align: right
     font-family: $pixel
