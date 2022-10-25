@@ -1,45 +1,44 @@
 <template>
-  <div ref="teste" class="pick-section">
-    <div v-for="(item, index) in clickedPokemon" :key="index">
-      <div
-        :id="item.id"
-        :ref="'card-' + item.id"
-        class="pick-card fadeIn-slideLeft"
-      >
-        <div class="pick-value pick-name">{{ item.name }}</div>
-        <div class="pick-sprite">
-          <img
-            :src="pokeSprite(item.id - 1, 'other', 'official-artwork')"
-            :alt="item.name"
-          />
-        </div>
-        <div class="pick-value">
-          <p>{{ item.weight / 10 }}KG</p>
-          <ion-icon
-            v-if="item.weight < chosenPoke.weight"
-            name="arrow-up-circle-outline"
-          ></ion-icon>
-          <ion-icon
-            v-else-if="item.weight > chosenPoke.weight"
-            name="arrow-down-circle-outline"
-          ></ion-icon>
-          <ion-icon v-else name="checkmark-circle-outline"></ion-icon>
-        </div>
+  <div class="sect">
+    <div ref="teste" class="pick-section">
+      <div v-for="(item, index) in clickedPokemon" :key="index">
+        <div :id="item.id" :ref="'card-' + item.id" class="pick-card slideLeft">
+          <div class="pick-value pick-name">{{ item.name }}</div>
+          <div class="pick-sprite">
+            <img
+              :src="pokeSprite(item.id - 1, 'other', 'official-artwork')"
+              :alt="item.name"
+            />
+          </div>
+          <div class="pick-value">
+            <p>{{ item.weight / 10 }}KG</p>
+            <ion-icon
+              v-if="item.weight < chosenPoke.weight"
+              name="arrow-up-circle-outline"
+            ></ion-icon>
+            <ion-icon
+              v-else-if="item.weight > chosenPoke.weight"
+              name="arrow-down-circle-outline"
+            ></ion-icon>
+            <ion-icon v-else name="checkmark-circle-outline"></ion-icon>
+          </div>
 
-        <div class="pick-value">
-          <p>{{ item.height / 10 }}M</p>
-          <ion-icon
-            v-if="item.height < chosenPoke.height"
-            name="arrow-up-circle-outline"
-          ></ion-icon>
-          <ion-icon
-            v-else-if="item.height > chosenPoke.height"
-            name="arrow-down-circle-outline"
-          ></ion-icon>
-          <ion-icon v-else name="checkmark-circle-outline"></ion-icon>
+          <div class="pick-value">
+            <p>{{ item.height / 10 }}M</p>
+            <ion-icon
+              v-if="item.height < chosenPoke.height"
+              name="arrow-up-circle-outline"
+            ></ion-icon>
+            <ion-icon
+              v-else-if="item.height > chosenPoke.height"
+              name="arrow-down-circle-outline"
+            ></ion-icon>
+            <ion-icon v-else name="checkmark-circle-outline"></ion-icon>
+          </div>
         </div>
       </div>
     </div>
+    <div class="smooth"></div>
   </div>
 </template>
 
@@ -83,10 +82,26 @@ export default {
 
 .pick-section
   height: 256px
+  width: 440px
   overflow-y: hidden
   overflow-x: hidden
   scroll-behavior: smooth
+
+.sect
+  position: relative
+  height: 256px
+  width: 440px
   margin: 20px
+
+.smooth
+  position: absolute
+  top: 0
+  right: 0
+  display: block
+  height: 100%
+  width: 40px
+  z-index: 100
+  background-image: linear-gradient(to right, $transparent, white)
 
 .pick-card
   display: flex

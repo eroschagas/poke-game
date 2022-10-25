@@ -1,7 +1,7 @@
 *
-    margin: 0
-    padding: 0
-    box-sizing: border-box
+  margin: 0
+  padding: 0
+  box-sizing: border-box
 
 $cursive: 'Goldman', cursive
 $pixel: 'Silkscreen', cursive
@@ -15,6 +15,8 @@ $pokelistBackground: #f0404c
 $pokelistBackgroundHover: #ff0011
 $pokelistBackgroundFail: #929292
 $pokelistBackgroundWin: #ffd000
+
+$transparent: #ffffff00
 
 @keyframes fadeIn
   0%
@@ -73,3 +75,9 @@ $pokelistBackgroundWin: #ffd000
   animation-duration: 0.8s, 0.5s
   animation-timing-function: ease-out, ease-out
   animation-iteration-count: 1, 1
+
+.slideLeft
+  animation-name: slideLeft
+  animation-duration: 0.5s
+  animation-timing-function: ease-out
+  animation-iteration-count: 1
