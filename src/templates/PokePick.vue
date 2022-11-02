@@ -4,12 +4,18 @@
       <div v-for="(item, index) in clickedPokemon" :key="index">
         <div :id="item.id" :ref="'card-' + item.id" class="pick-card slideLeft">
           <div class="pick-value pick-name">{{ item.name }}</div>
-          <div class="pick-sprite">
+          <div class="pick-sprite fade-in-delay">
             <img
               :src="pokeSprite(item.id - 1, 'other', 'official-artwork')"
               :alt="item.name"
             />
           </div>
+          <TypeImage
+            :poke="item"
+            :clickedPokemon="clickedPokemon"
+            :typeSprite="typeSprite"
+          />
+
           <div class="pick-value">
             <p>{{ item.weight / 10 }}KG</p>
             <ion-icon
@@ -43,9 +49,11 @@
 </template>
 
 <script>
+import TypeImage from '@/components/TypeImage.vue';
+
 export default {
   name: 'PokePick',
-  props: ['clickedPokemon', 'pokeSprite', 'chosenPoke'],
+  props: ['clickedPokemon', 'pokeSprite', 'chosenPoke', 'typeSprite'],
   computed: {
     listMin() {
       if (this.clickedPokemon.length >= 4) {
@@ -74,6 +82,7 @@ export default {
       },
     },
   },
+  components: { TypeImage },
 };
 </script>
 
@@ -82,7 +91,7 @@ export default {
 
 .pick-section
   height: 256px
-  width: 440px
+  width: fit-content
   overflow-y: hidden
   overflow-x: hidden
   scroll-behavior: smooth
@@ -90,7 +99,7 @@ export default {
 .sect
   position: relative
   height: 256px
-  width: 440px
+  width: fit-content
   margin: 20px
 
 .smooth
@@ -114,10 +123,10 @@ export default {
     height: 40px
     width: 40px
 .pick-value
-  margin: 10px 0 10px 10px
+  margin: 10px
   width: 90px
   height: 64px
-  background: $shadow
+  background: $transparent
   display: flex
   justify-content: center
   align-items: center

@@ -6,13 +6,18 @@
           @click="pickPokemon(item)"
           :class="[
             'poke-card',
+            'fade-in',
             pokeMissed(item) ? 'poke-card-disabled' : '',
             pokeFind(item) ? 'poke-card-found' : '',
           ]"
           v-if="pokeList.length && item.is_default && pokeSprite(index)"
         >
           <!-- <h1>{{ item.name }}</h1> -->
-          <img :src="pokeSprite(index)" :alt="item.name" />
+          <img
+            class="fade-in-delay hide-alt"
+            :src="pokeSprite(index)"
+            :alt="item.name"
+          />
         </div>
       </div>
     </div>
@@ -23,7 +28,7 @@
 </template>
 
 <script>
-import LoadingIcon from './LoadingIcon.vue';
+import LoadingIcon from '../components/LoadingIcon.vue';
 export default {
   name: 'PokeList',
   props: [

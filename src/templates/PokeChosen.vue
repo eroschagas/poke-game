@@ -8,50 +8,13 @@
       />
     </div>
     <div class="chosen-stats">
-      <div class="chosen-stats-field chosen-type">
-        <div>
-          <div
-            class="chosen-type-show fadeIn-swirl-grow"
-            v-if="chosenPoke.pokemon_v2_pokemontypes && type1"
-          >
-            <img
-              :src="
-                typeSprite(
-                  chosenPoke.pokemon_v2_pokemontypes[0].pokemon_v2_type.name
-                )
-              "
-              alt="Secret Type"
-            />
-          </div>
-          <div class="chosen-type-hidden"></div>
-        </div>
-        <div>
-          <div
-            class="chosen-type-show fadeIn-swirl-grow"
-            v-if="
-              chosenPoke.pokemon_v2_pokemontypes &&
-              chosenPoke.pokemon_v2_pokemontypes.length == 2 &&
-              type2
-            "
-          >
-            <img
-              :src="
-                typeSprite(
-                  chosenPoke.pokemon_v2_pokemontypes[1].pokemon_v2_type.name
-                )
-              "
-              alt="Secret Type"
-            />
-          </div>
-          <div
-            v-if="
-              chosenPoke.pokemon_v2_pokemontypes &&
-              chosenPoke.pokemon_v2_pokemontypes.length == 2
-            "
-            class="chosen-type-hidden"
-          ></div>
-        </div>
-      </div>
+      <TypeImage
+        class="chosen-stats-field"
+        chosen="true"
+        :poke="chosenPoke"
+        :clickedPokemon="clickedPokemon"
+        :typeSprite="typeSprite"
+      />
       <div class="chosen-stats-field chosen-gen">
         <div>
           <p>GEN</p>
@@ -89,9 +52,11 @@
 </template>
 
 <script>
-import LoadingIcon from './LoadingIcon.vue';
+import TypeImage from '@/components/TypeImage.vue';
+import LoadingIcon from '../components/LoadingIcon.vue';
 export default {
   name: 'PokeChosen',
+  components: { LoadingIcon, TypeImage },
   props: [
     'pokeList',
     'clickedPokemon',
@@ -104,38 +69,9 @@ export default {
     'loadingList',
   ],
   data() {
-    return {
-      type1: false,
-      type2: false,
-    };
-  },
-  watch: {
-    clickedPokemon: {
-      deep: true,
-      handler() {
-        this.$nextTick(() => {
-          this.findType();
-        });
-      },
-    },
+    return {};
   },
   methods: {
-    findType() {
-      let clicked = this.clickedPokemon
-        .map((p) =>
-          p.pokemon_v2_pokemontypes.map((p) => p.pokemon_v2_type.name)
-        )
-        .flat();
-      let chosen = this.chosenPoke.pokemon_v2_pokemontypes.map(
-        (p) => p.pokemon_v2_type.name
-      );
-      if (chosen.length > 1 && clicked.includes(chosen[1])) {
-        this.type2 = true;
-      }
-      if (clicked.includes(chosen[0])) {
-        this.type1 = true;
-      }
-    },
     findGen() {
       let clicked = this.clickedPokemon.map(
         (p) => p.pokemon_v2_pokemonspecy.generation_id
@@ -166,7 +102,6 @@ export default {
       }
     },
   },
-  components: { LoadingIcon },
 };
 </script>
 
@@ -200,28 +135,6 @@ export default {
 
 .chosen-stats
   display: flex
-
-.chosen-type
-  display: flex
-  margin: 10px
-  align-items: center
-  justify-content: center
-  width: 120px
-  .chosen-type-show
-    height: 30px
-    width: 30px
-    margin: 0 10px
-    position: absolute
-    img
-      height: 30px
-      width: 30px
-
-  .chosen-type-hidden
-    height: 30px
-    width: 30px
-    margin: 0 10px
-    background: $shadow
-    border-radius: 50%
 
 .chosen-stats-field
   background: $chosenBackgroundFields

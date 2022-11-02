@@ -53,7 +53,13 @@ $transparent: #ffffff00
     rotate: 1800deg
 
 .fade-in
+  opacity: 0
   animation: fadeIn 0.5s forwards ease-out
+
+.fade-in-delay
+  opacity: 0
+  animation: fadeIn 0.5s forwards ease-out
+  animation-delay: 0.5s
 
 .fade-out
   animation: fadeOut 0.5s forwards ease-out
@@ -81,3 +87,6 @@ $transparent: #ffffff00
   animation-duration: 0.5s
   animation-timing-function: ease-out
   animation-iteration-count: 1
+
+.hide-alt
+  color: transparent

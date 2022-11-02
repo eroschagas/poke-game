@@ -14,6 +14,7 @@
       :pokeFound="pokeFound"
     />
     <PokePick
+      :typeSprite="typeSprite"
       :clickedPokemon="clickedPokemon"
       :pokeSprite="pokeSprite"
       :chosenPoke="chosenPoke"
@@ -31,10 +32,10 @@
 </template>
 
 <script>
-import PokeList from './components/PokeList.vue';
-import PokeChosen from './components/PokeChosen.vue';
+import PokeList from './templates/PokeList.vue';
+import PokeChosen from './templates/PokeChosen.vue';
 import axios from 'axios';
-import PokePick from './components/PokePick.vue';
+import PokePick from './templates/PokePick.vue';
 
 export default {
   name: 'App',

@@ -19,9 +19,10 @@ export default {
     };
   },
   mounted() {
+    let loading = this.$refs.loading;
     this.x = 1;
-    this.$refs.loading.style.height = this.size + 'px';
-    this.$refs.loading.style.width = this.size + 'px';
+    loading.style.height = this.size + 'px';
+    loading.style.width = this.size + 'px';
   },
   watch: {
     x() {
@@ -47,7 +48,10 @@ export default {
   },
   methods: {
     rotate(x) {
-      this.$refs.loading.style.rotate = x + 'deg';
+      let loading = this.$refs.loading;
+      if (loading) {
+        loading.style.rotate = x + 'deg';
+      }
     },
     beforeDestroy() {
       this.x = 0;
