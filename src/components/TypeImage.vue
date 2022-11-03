@@ -129,6 +129,7 @@ export default {
     margin: 0 10px
     position: absolute
     img
+      scale: 1.1
       height: 30px
       width: 30px
   .poke-type-show

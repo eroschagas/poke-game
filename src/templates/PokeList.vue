@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="poke-list">
     <div class="all-pokemon" v-if="!loadingList">
       <div v-for="(item, index) in pokeList" :key="index">
         <div
@@ -71,12 +71,34 @@ export default {
 .all-pokemon
   margin: 0 10px
   height: 100vh
-  padding-top: 10px
+  padding: 25px 0
   height: 50vh
   overflow-y: scroll
   display: flex
   flex-wrap: wrap
   justify-content: center
+
+.poke-list
+  position: relative
+
+  &::before
+    content: ''
+    background: linear-gradient(to bottom, white, transparent)
+    position: absolute
+    width: 100%
+    height: 20px
+    top: 0
+    left: 0
+    z-index: 10
+  &::after
+    content: ''
+    background: linear-gradient(to top, white , transparent )
+    position: absolute
+    width: 100%
+    height: 20px
+    bottom: 0
+    left: 0
+    z-index: 10
 
 .poke-card
   width: 90px
@@ -119,7 +141,7 @@ export default {
       width: 70px
       height: 70px
 .poke-card-hover:hover
-    scale: (1.2)
+    scale: (1.25)
     // background: $pokelistBackgroundHover
     div
       animation-name: shake, grow-shrink
