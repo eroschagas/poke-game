@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+
+<svg
+   version="1.1"
+   id="Pokéball"
+   x="0px"
+   y="0px"
+   viewBox="0 0 595.3 594.1"
+   xml:space="preserve"
+   sodipodi:docname="Poke_Ball_icon_top.svg"
+   style="enable-background:new 0 0 595.3 594.1;"
+   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs15">
+		
+		
+		
+		
+		
+	</defs><sodipodi:namedview
+   id="namedview13"
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1.0"
+   inkscape:showpageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#d1d1d1"
+   showgrid="false"
+   inkscape:zoom="0.99621007"
+   inkscape:cx="126.98125"
+   inkscape:cy="143.54402"
+   inkscape:window-width="1920"
+   inkscape:window-height="1017"
+   inkscape:window-x="-8"
+   inkscape:window-y="-8"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Pokéball_1_" />
+<style
+   type="text/css"
+   id="style2">
+	.st0{fill:#FFFFFF;}
+	.st1{fill:#DFDFDF;}
+	.st2{fill:#FF1C1C;}
+	.st3{fill:#DF1818;}
+</style>
+<g
+   id="Pokéball_1_">
+	<path
+   id="Center"
+   class="st0"
+   d="m 347.1,297 v 0 c -0.1,0 -0.1,0 0,0 -0.1,-6.1 -1.2,-11.9 -3.2,-17.3 -7,-18.8 -25.1,-32.1 -46.3,-32.1 -21.2,0 -39.3,13.4 -46.3,32.1 -2,5.4 -3.1,11.2 -3.1,17.3 0,0 0,0 0,0 h 0.1 c 0,0 0,0 0,0 0,6.1 1.1,11.9 3.1,17.3 7,18.8 25.1,32.1 46.3,32.1 21.2,0 39.3,-13.4 46.3,-32.1 2,-5.3 3.1,-11.2 3.1,-17.3 0,0 0,0 0,0 z" /><path
+   id="Up"
+   class="st2"
+   d="m 297.7,213.2 c 40.4,0 74.1,28.6 82.1,66.6 H 514.2 C 504.7,169.2 412,82.5 299,82.5 186,82.5 93.4,169.2 83.9,279.7 h 131.7 c 8,-38 41.7,-66.5 82.1,-66.5 z" /><path
+   id="Shadow_Up"
+   class="st3"
+   d="m 458.3,279.7 h 55.8 C 505.9,184.2 435.5,106.4 343.6,87.1 c 63.8,33.7 109.3,106.6 114.7,192.6 z" />
+	<path
+   id="path678"
+   d="m 299,82.5 c 113,0 205.7,86.7 215.1,197.2 H 379.7 c -8,-38 -41.7,-66.6 -82.1,-66.6 -40.4,0 -74.1,28.6 -82.1,66.6 H 83.9 C 93.4,169.2 186.1,82.5 299,82.5 Z m 44.9,197.2 c 2,5.4 3.1,11.2 3.1,17.3 v 0 h 0.1 c -0.33669,6.13109 -1.30687,12.35948 -3.1,17.3 -7,18.8 -25.1,32.1 -46.3,32.1 -21.2,0 -39.3,-13.4 -46.3,-32.1 -2,-5.4 -3.1,-11.2 -3.1,-17.3 v 0 h -0.1 v 0 c 0,-6.1 1.1,-11.9 3.1,-17.3 7,-18.8 25.1,-32.1 46.3,-32.1 21.2,0 39.3,13.4 46.3,32.1 z M 553.4,297 C 553.4,155.7 438.9,41.3 297.6,41.3 156.4,41.3 42.150951,151.53383 42.150951,292.73383 L 42.176771,314.4 H 81.350956 215.5 c 8,38 41.7,66.6 82.1,66.6 40.4,0 74.1,-28.6 82.1,-66.6 h 131.7 42.07989 z"
+   sodipodi:nodetypes="sccsccscscccscsccscsccsccccscccc" />
+</g>
+</svg>

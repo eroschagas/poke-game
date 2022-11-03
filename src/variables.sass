@@ -8,6 +8,8 @@ $pixel: 'Silkscreen', cursive
 
 $shadow: #72727277
 
+$pokeBackground: #000000ad
+
 $chosenBackground: #6aa8e6
 $chosenBackgroundFields: #c6cccc
 
@@ -51,6 +53,28 @@ $transparent: #ffffff00
     rotate: 1440deg
   100%
     rotate: 1800deg
+
+@keyframes grow-shrink
+  0%
+    scale: 1
+  50%
+    scale: 1.1
+  100%
+    scale: 1
+
+@keyframes shake
+  0%
+    rotate: 0deg
+  20%
+    rotate: 10deg
+  40%
+    rotate: -10deg
+  60%
+    rotate: 10deg
+  80%
+    rotate: -10deg
+  100%
+    rotate: 0deg
 
 .fade-in
   opacity: 0

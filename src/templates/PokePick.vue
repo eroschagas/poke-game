@@ -11,6 +11,7 @@
             />
           </div>
           <TypeImage
+            class="fade-in-delay"
             :poke="item"
             :clickedPokemon="clickedPokemon"
             :typeSprite="typeSprite"
@@ -18,28 +19,32 @@
 
           <div class="pick-value">
             <p>{{ item.weight / 10 }}KG</p>
-            <ion-icon
-              v-if="item.weight < chosenPoke.weight"
-              name="arrow-up-circle-outline"
-            ></ion-icon>
-            <ion-icon
-              v-else-if="item.weight > chosenPoke.weight"
-              name="arrow-down-circle-outline"
-            ></ion-icon>
-            <ion-icon v-else name="checkmark-circle-outline"></ion-icon>
+            <div>
+              <ion-icon
+                v-if="item.weight < chosenPoke.weight"
+                name="arrow-up-circle-outline"
+              ></ion-icon>
+              <ion-icon
+                v-else-if="item.weight > chosenPoke.weight"
+                name="arrow-down-circle-outline"
+              ></ion-icon>
+              <ion-icon v-else name="checkmark-circle-outline"></ion-icon>
+            </div>
           </div>
 
           <div class="pick-value">
             <p>{{ item.height / 10 }}M</p>
-            <ion-icon
-              v-if="item.height < chosenPoke.height"
-              name="arrow-up-circle-outline"
-            ></ion-icon>
-            <ion-icon
-              v-else-if="item.height > chosenPoke.height"
-              name="arrow-down-circle-outline"
-            ></ion-icon>
-            <ion-icon v-else name="checkmark-circle-outline"></ion-icon>
+            <div>
+              <ion-icon
+                v-if="item.height < chosenPoke.height"
+                name="arrow-up-circle-outline"
+              ></ion-icon>
+              <ion-icon
+                v-else-if="item.height > chosenPoke.height"
+                name="arrow-down-circle-outline"
+              ></ion-icon>
+              <ion-icon v-else name="checkmark-circle-outline"></ion-icon>
+            </div>
           </div>
         </div>
       </div>
@@ -123,17 +128,24 @@ export default {
     height: 40px
     width: 40px
 .pick-value
-  margin: 10px
+  margin: 10px 20px 10px 10px
   width: 90px
   height: 64px
   background: $transparent
   display: flex
-  justify-content: center
+  justify-content: flex-end
   align-items: center
   border-radius: 32px
+  div
+    margin: 10px
+    display: flex
+    justify-content: flex-end
+    align-items: center
+    font-size: 24px
   p
     text-align: right
     font-family: $pixel
+    min-width: 80px
 
 .pick-name
   width: 130px
