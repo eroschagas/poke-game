@@ -70,9 +70,8 @@ export default {
 
 .all-pokemon
   margin: 0 10px
-  height: 100vh
-  padding: 25px 0
-  height: 50vh
+  height: 100%
+  padding: 25px
   overflow-y: scroll
   display: flex
   flex-wrap: wrap
@@ -80,6 +79,7 @@ export default {
 
 .poke-list
   position: relative
+  // width: fit-content
 
   &::before
     content: ''
@@ -158,10 +158,10 @@ export default {
   .pokeball-bot
     animation: openPokeballBot 0.3s forwards ease-out
   &:hover
-  .pokeball-top
-    translate: 0 -10px
-  .pokeball-bot
-    translate: 0 10px
+    .pokeball-top
+      translate: 0 -10px
+    .pokeball-bot
+      translate: 0 10px
 
 .poke-card-found
   position: relative

@@ -1,40 +1,43 @@
 <template>
-  <div class="console" @click="teste">console.log</div>
+  <div class="home">
+    <div class="console" @click="teste">console.log</div>
 
-  <div class="section-1">
-    <PokeChosen
+    <div class="section-1">
+      <PokeChosen
+        :loadingList="loadingList"
+        :pokeList="pokeList"
+        :randomPokemon="randomPokemon"
+        :clickedPokemon="clickedPokemon"
+        :pokeSprite="pokeSprite"
+        :upperCase="upperCase"
+        :typeSprite="typeSprite"
+        :chosenPoke="chosenPoke"
+        :pokeFound="pokeFound"
+      />
+      <PokePick
+        :typeSprite="typeSprite"
+        :clickedPokemon="clickedPokemon"
+        :pokeSprite="pokeSprite"
+        :chosenPoke="chosenPoke"
+      />
+    </div>
+    <PokeList
+      class="pokelist"
       :loadingList="loadingList"
       :pokeList="pokeList"
-      :randomPokemon="randomPokemon"
-      :clickedPokemon="clickedPokemon"
-      :pokeSprite="pokeSprite"
-      :upperCase="upperCase"
-      :typeSprite="typeSprite"
-      :chosenPoke="chosenPoke"
-      :pokeFound="pokeFound"
-    />
-    <PokePick
-      :typeSprite="typeSprite"
-      :clickedPokemon="clickedPokemon"
+      :pickPokemon="pickPokemon"
       :pokeSprite="pokeSprite"
       :chosenPoke="chosenPoke"
+      :pokeFind="pokeFind"
+      :pokeMissed="pokeMissed"
     />
   </div>
-  <PokeList
-    :loadingList="loadingList"
-    :pokeList="pokeList"
-    :pickPokemon="pickPokemon"
-    :pokeSprite="pokeSprite"
-    :chosenPoke="chosenPoke"
-    :pokeFind="pokeFind"
-    :pokeMissed="pokeMissed"
-  />
 </template>
 
 <script>
+import axios from 'axios';
 import PokeList from './templates/PokeList.vue';
 import PokeChosen from './templates/PokeChosen.vue';
-import axios from 'axios';
 import PokePick from './templates/PokePick.vue';
 
 export default {
@@ -184,10 +187,19 @@ export default {
 </script>
 
 <style lang="sass">
+.home
+  display: flex
+
 .console
   position: fixed
   cursor: pointer
 
+.pokelist
+  height: 100vh
+  width: 55%
 .section-1
-  display: flex
+  // display: flex
+  // flex-direction: column
+  width: 45%
+
 </style>
