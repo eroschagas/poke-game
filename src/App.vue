@@ -29,6 +29,7 @@
       :pokeSprite="pokeSprite"
       :chosenPoke="chosenPoke"
       :pokeFind="pokeFind"
+      :pokeFound="pokeFound"
       :pokeMissed="pokeMissed"
     />
   </div>
@@ -76,7 +77,9 @@ export default {
         (p) =>
           p.is_default &&
           JSON.parse(p.pokemon_v2_pokemonsprites[0].sprites).front_default
-      ).length;
+        // JSON.parse(p.pokemon_v2_pokemonsprites[0].sprites).other.dream_world
+        //   .front_default
+      );
     },
     randomPokemon() {
       // return Math.floor(Math.random() * this.maxPokemon);
@@ -94,7 +97,9 @@ export default {
       console.log(this.clickedPokemon);
       console.log(this.pokeList);
       console.log(
-        JSON.parse(this.pokeList[0].pokemon_v2_pokemonsprites[0].sprites)
+        JSON.parse(
+          this.pokeList[this.randomPokemon].pokemon_v2_pokemonsprites[0].sprites
+        )
       );
     },
 
@@ -130,8 +135,15 @@ export default {
             `,
           },
         });
-        this.pokeList = result.data.data.pokemon_v2_pokemon;
+        this.pokeList = result.data.data.pokemon_v2_pokemon.filter(
+          (p) => p.is_default
+          //  &&
+          // JSON.parse(p.pokemon_v2_pokemonsprites[0].sprites).other.dream_world
+          //   .front_default
+        );
+        // setTimeout(() => {
         this.loadingList = false;
+        // }, 200);
       } catch (error) {
         console.error(error);
       }
@@ -201,5 +213,4 @@ export default {
   // display: flex
   // flex-direction: column
   width: 45%
-
 </style>

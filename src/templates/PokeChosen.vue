@@ -1,12 +1,22 @@
 <template>
   <div v-if="chosenPoke" class="chosen-box">
-    <div v-if="pokeFound" class="chosen-title">
+    <!-- <div v-if="pokeFound" class="chosen-title"> -->
+    <!-- <div v-if="true" class="chosen-title">
       <h1>{{ upperCase(chosenPoke.name) }}</h1>
       <img
         :src="pokeSprite(this.randomPokemon, 'other', 'official-artwork')"
         alt="Secret Pokemon"
       />
-    </div>
+    </div> -->
+    <ChosenSprite
+      class="chosen-sprite"
+      :upperCase="upperCase"
+      :pokeSprite="pokeSprite"
+      :randomPokemon="randomPokemon"
+      :chosenPoke="chosenPoke"
+      :pokeFound="pokeFound"
+    />
+
     <div class="chosen-stats">
       <TypeImage
         class="chosen-stats-field"
@@ -53,10 +63,12 @@
 
 <script>
 import TypeImage from '@/components/TypeImage.vue';
-import LoadingIcon from '../components/LoadingIcon.vue';
+import LoadingIcon from '@/components/LoadingIcon.vue';
+import ChosenSprite from '@/components/ChosenSprite.vue';
+
 export default {
   name: 'PokeChosen',
-  components: { LoadingIcon, TypeImage },
+  components: { LoadingIcon, TypeImage, ChosenSprite },
   props: [
     'pokeList',
     'clickedPokemon',
@@ -107,7 +119,6 @@ export default {
 
 <style lang="sass">
 @import '../variables.sass'
-
 .chosen-box
   height: fit-content
   margin: 20px
@@ -119,19 +130,6 @@ export default {
   justify-content: center
   align-items: center
   box-shadow: 2px 2px 2px $shadow
-
-.chosen-title
-  display: flex
-  flex-direction: column
-  align-items: center
-  h1
-    margin: 5px
-    font-family: $pixel
-    font-weight: normal
-    text-shadow: 2px 2px 2px $shadow
-  img
-    width: 100px
-    height: auto
 
 .chosen-stats
   display: flex

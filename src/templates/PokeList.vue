@@ -2,6 +2,7 @@
   <div class="poke-list">
     <div class="all-pokemon" v-if="!loadingList">
       <div v-for="(item, index) in pokeList" :key="index">
+        <div v-if="pokeFound" class="win-overlay"></div>
         <div
           @click="pickPokemon(item)"
           :class="[
@@ -41,6 +42,7 @@ export default {
     'pokeSprite',
     'chosenPoke',
     'pokeFind',
+    'pokeFound',
     'pokeMissed',
     'loadingList',
   ],
@@ -76,6 +78,13 @@ export default {
   display: flex
   flex-wrap: wrap
   justify-content: center
+
+.win-overlay
+  width: 100%
+  height: 100%
+  position: fixed
+  z-index: 100
+  background: $transparent
 
 .poke-list
   position: relative
@@ -135,6 +144,7 @@ export default {
     align-items: center
     position: relative
     img
+      image-rendering: pixelated
       position: relative
       border-radius: 50%
       background-image: radial-gradient( $pokeBackground 30%, transparent 70%)
