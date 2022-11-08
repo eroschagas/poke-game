@@ -7,7 +7,7 @@
       </div>
       <div class="chosen-image">
         <img
-          v-if="true"
+          v-if="false"
           class="pokechosen-sprite"
           :src="pokeSprite(this.randomPokemon)"
           alt="Secret Pokemon"
@@ -196,13 +196,13 @@ export default {
 
 .red-dot
   opacity: 0
-  height: 15px
-  width: 15px
-  background: radial-gradient(red 20%, transparent 70%)
+  height: 8px
+  width: 8px
+  background: $redglow
   position: absolute
-  top: 44px
-  left: 45px
-  border-radius: 50%
+  box-shadow: 0 0 2px 1px $redglow
+  top: 48px
+  left: 49px
   animation: redDotGlow 2s 1s infinite ease-in-out
 
 .chosen-name
