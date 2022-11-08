@@ -4,14 +4,14 @@
       <div v-for="(item, index) in clickedPokemon" :key="index">
         <div :id="item.id" :ref="'card-' + item.id" class="pick-card slideLeft">
           <div class="pick-value pick-name">{{ item.name }}</div>
-          <div class="pick-sprite fade-in-delay">
+          <div class="pick-sprite">
             <img
               :src="pokeSprite(item.id - 1, 'other', 'official-artwork')"
               :alt="item.name"
             />
           </div>
           <TypeImage
-            class="fade-in-delay"
+            class="type-fade"
             :poke="item"
             :clickedPokemon="clickedPokemon"
             :typeSprite="typeSprite"
@@ -123,10 +123,17 @@ export default {
   align-items: center
 
 .pick-sprite
+  opacity: 0
+  animation: fadeIn 0.5s 1s forwards ease-out
   margin: 10px
   img
     height: 40px
     width: 40px
+
+.type-fade
+  opacity: 0
+  animation: fadeIn 0.5s 1s forwards ease-out
+
 .pick-value
   margin: 10px 20px 10px 10px
   width: 90px

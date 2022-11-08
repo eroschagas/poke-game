@@ -1,5 +1,5 @@
 <template>
-  <div v-if="chosenPoke" class="chosen-box">
+  <div v-if="chosenPoke && !loadingList" class="chosen-box">
     <!-- <div v-if="pokeFound" class="chosen-title"> -->
     <!-- <div v-if="true" class="chosen-title">
       <h1>{{ upperCase(chosenPoke.name) }}</h1>

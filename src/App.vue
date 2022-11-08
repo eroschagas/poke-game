@@ -74,9 +74,7 @@ export default {
   computed: {
     maxPokemon() {
       return this.pokeList.filter(
-        (p) =>
-          p.is_default &&
-          JSON.parse(p.pokemon_v2_pokemonsprites[0].sprites).front_default
+        (p) => JSON.parse(p.pokemon_v2_pokemonsprites[0].sprites).front_default
         // JSON.parse(p.pokemon_v2_pokemonsprites[0].sprites).other.dream_world
         //   .front_default
       );
@@ -110,14 +108,12 @@ export default {
           method: 'POST',
           url: 'https://beta.pokeapi.co/graphql/v1beta',
           data: {
-            query: `
-              {
-                pokemon_v2_pokemon {
+            // eslint-disable-next-line
+            query: `{ pokemon_v2_pokemon(where: {is_default: {_eq: true}, pokemon_v2_pokemonsprites: {sprites: {_lt: "{\\\"front_default\\\": null"}}}, order_by: {id: asc}) {
                   id
                   name
                   height
                   weight
-                  is_default
                   pokemon_v2_pokemontypes {
                     slot
                     pokemon_v2_type {
@@ -131,19 +127,13 @@ export default {
                     sprites
                   }
                 }
-              }
-            `,
+              }`,
           },
         });
-        this.pokeList = result.data.data.pokemon_v2_pokemon.filter(
-          (p) => p.is_default
-          //  &&
-          // JSON.parse(p.pokemon_v2_pokemonsprites[0].sprites).other.dream_world
-          //   .front_default
-        );
-        // setTimeout(() => {
-        this.loadingList = false;
-        // }, 200);
+        this.pokeList = result.data.data.pokemon_v2_pokemon;
+        setTimeout(() => {
+          this.loadingList = false;
+        }, 2000);
       } catch (error) {
         console.error(error);
       }
@@ -209,6 +199,7 @@ export default {
 .pokelist
   height: 100vh
   width: 55%
+  margin: 0 10px
 .section-1
   // display: flex
   // flex-direction: column

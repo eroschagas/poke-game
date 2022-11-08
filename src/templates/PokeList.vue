@@ -1,7 +1,7 @@
 <template>
   <div class="poke-list">
-    <div class="all-pokemon" v-if="!loadingList">
-      <div v-for="(item, index) in pokeList" :key="index">
+    <div class="all-pokemon">
+      <div class="poke-cards" v-for="(item, index) in pokeList" :key="index">
         <div v-if="pokeFound" class="win-overlay"></div>
         <div
           @click="pickPokemon(item)"
@@ -11,7 +11,7 @@
             pokeMissed(item) ? 'poke-card-disabled' : 'poke-card-hover',
             pokeFind(item) ? 'poke-card-found' : '',
           ]"
-          v-if="pokeList.length && item.is_default && pokeSprite(index)"
+          v-if="pokeList.length"
         >
           <!-- <h1>{{ item.name }}</h1> -->
           <div>
@@ -26,7 +26,7 @@
         </div>
       </div>
     </div>
-    <div class="all-pokemon pokelist-loading" v-else>
+    <div class="all-pokemon pokelist-loading" v-if="loadingList">
       <LoadingIcon speed="2" size="30" />
     </div>
   </div>
@@ -78,6 +78,11 @@ export default {
   display: flex
   flex-wrap: wrap
   justify-content: center
+
+.poke-cards
+  opacity: 0
+  transition: all 1s ease-out
+  animation: fadeIn 0.5s 2s forwards ease-out
 
 .win-overlay
   width: 100%
@@ -151,13 +156,14 @@ export default {
       width: 70px
       height: 70px
 .poke-card-hover:hover
-    scale: (1.25)
-    // background: $pokelistBackgroundHover
-    div
-      animation-name: shake, grow-shrink
-      animation-duration: 0.4s, 0.5s
-      animation-timing-function: ease-in-out, ease-in-out
-      animation-iteration-count: 1, 1
+  // background: $pokelistBackgroundHover
+  scale: (1.25)
+  div
+    opacity: 1
+    animation-name: shake, grow-shrink
+    animation-duration: 0.4s, 0.5s
+    animation-timing-function: ease-in-out, ease-in-out
+    animation-iteration-count: 1, 1
 
 .poke-card-disabled
   img
@@ -184,6 +190,11 @@ export default {
   transform: scale(1.5)
 
 .pokelist-loading
+  position: absolute
+  top: 0
+  width: 100%
+  height: 100%
+  overflow: hidden
   display: flex
   justify-content: center
   align-items: center
