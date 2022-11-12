@@ -6,18 +6,32 @@
         <h1 v-else>Who is that pokémon?</h1>
       </div>
       <div class="chosen-image">
-        <img
-          v-if="false"
-          class="pokechosen-sprite"
-          :src="pokeSprite(this.randomPokemon)"
-          alt="Secret Pokemon"
-        />
+        <div v-if="pokeFound" class="pokechosen-appear-effect"></div>
+        <div
+          v-if="pokeFound"
+          class="pokechosen-sprite-mask"
+          :style="maskImage"
+        ></div>
         <!-- <img
+          v-if="true"
+          class="pokechosen-sprite"
+          :src="pokeSprite(randomPokemon)"
+          alt="Secret Pokemon"
+          :style="bottomCalc(chosenPoke.height)"
+        /> -->
+        <img
           v-if="pokeFound"
           class="pokechosen-sprite"
-          :src="pokeSprite(this.randomPokemon, 'other', 'official-artwork')"
+          :src="
+            pokeSprite(
+              this.randomPokemon,
+              'versions',
+              'generation-viii',
+              'icons'
+            )
+          "
           alt="Secret Pokemon"
-        /> -->
+        />
         <div
           class="chosen-pokeball chosen-pokeball-closed"
           v-show="open == 'closed'"
@@ -71,6 +85,14 @@ export default {
     },
   },
   computed: {
+    maskImage() {
+      return `mask-image: url(${this.pokeSprite(
+        this.randomPokemon,
+        'versions',
+        'generation-viii',
+        'icons'
+      )})`;
+    },
     tile() {
       const tiles = [
         'forest-tile',
@@ -118,32 +140,6 @@ export default {
 <style lang="sass">
 @import '../variables.sass'
 
-@keyframes redDotGlow
-  0%
-    opacity: 0
-  50%
-    opacity: 0
-  70%
-    opacity: 1
-  90%
-    opacity: 0
-  100%
-    opacity: 0
-
-
-
-@keyframes rotatePokeball
-  0%
-    rotate: 0deg
-  10%
-    rotate: -25deg
-  30%
-    rotate: 25deg
-  40%
-    rotate: 0deg
-  100%
-    rotate: 0deg
-
 .chosen-title
   display: flex
   flex-direction: column
@@ -154,15 +150,18 @@ export default {
     font-weight: normal
     text-shadow: 2px 2px 2px $shadow
   .pokechosen-sprite
-    // position: relative
-    // position: absolute
+    position: absolute
     z-index: 100
-    // scale: 1.5
-    // margin-bottom: 10px
+    scale: 4
+    height: 56px
+    width: 68px
+    bottom: 100px
     image-rendering: pixelated
-    // max-height: 60%
-    // transform-box: fill-box
-    // transform-origin: 50% 100%
+    animation-name: fadeInLightPoke, pokeJump
+    animation-duration: 2s, 0.8s
+    animation-timing-function: linear, linear
+    animation-iteration-count: 1, 1
+    animation-delay: 0s, 5s
   .chosen-pokeball
     image-rendering: pixelated
     z-index: 50
@@ -211,4 +210,37 @@ export default {
   align-items: center
   text-align: center
   height: 82px
+
+.pokechosen-appear-effect
+  background: red
+  position: absolute
+  z-index: 102
+  bottom: -55px
+  width: 230px
+  height: 230px
+  border-radius: 50%
+  opacity: 0
+  animation-name: lightOut, lightForm
+  animation-duration: 1s, 3s
+  animation-timing-function: ease-out, ease-in-out
+  animation-iteration-count: 1, 1
+  animation-delay: .5s, 1.5s
+
+.pokechosen-sprite-mask
+  height: 56px
+  width: 68px
+  scale: 4
+  opacity: 0
+  background: red
+  position: absolute
+  bottom: 100px
+  z-index: 101
+  mask-mode: alpha
+  mask-repeat: no-repeat
+  image-rendering: pixelated
+  animation-name: fadeInLight, fadeOut
+  animation-duration: 3s, .8s
+  animation-timing-function: linear, ease-out
+  animation-iteration-count: 1, 1
+  animation-delay: 1.5s, 4s
 </style>

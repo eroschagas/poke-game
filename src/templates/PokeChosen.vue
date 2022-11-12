@@ -119,6 +119,7 @@ export default {
 
 <style lang="sass">
 @import '../variables.sass'
+
 .chosen-box
   height: fit-content
   margin: 20px
@@ -129,7 +130,7 @@ export default {
   flex-direction: column
   justify-content: center
   align-items: center
-  box-shadow: 2px 2px 2px $shadow
+  // box-shadow: 2px 2px 2px $shadow
 
 .chosen-stats
   display: flex

@@ -183,11 +183,11 @@ export default {
   position: relative
   z-index: 10
   background: $pokelistBackgroundWin
-  transform: scale(1.5)
+  transform: scale(1.3)
 
 .poke-card-found:hover
   background: $pokelistBackgroundWin
-  transform: scale(1.5)
+  transform: scale(1.3)
 
 .pokelist-loading
   position: absolute

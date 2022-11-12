@@ -10,7 +10,7 @@ $shadow: #72727277
 
 $pokeBackground: #000000ad
 
-$chosenBackground: #6aa8e6
+$chosenBackground: #fff
 $chosenBackgroundFields: #c6cccc
 
 $pokelistBackground: #f0404c
@@ -21,6 +21,70 @@ $pokelistBackgroundWin: #ffd000
 $transparent: #ffffff00
 
 $redglow: #ff0000af
+
+$pokeLightShape: radial-gradient(#ff0000 50%, transparent 70%)
+
+@keyframes lightOut
+  0%
+    opacity: 0
+    scale: 0.01
+    bottom: -55px
+  10%
+    opacity: 1
+    scale: 0.3
+  30%
+    bottom: -10px
+  100%
+    opacity: 1
+    scale: 1
+    bottom: -10px
+
+@keyframes lightForm
+  0%
+    bottom: -10px
+    scale: 1
+    opacity: 1
+  20%
+    scale: 1
+    opacity: 1
+  100%
+    bottom: -55px
+    scale: 0
+    opacity: 1
+
+@keyframes pokeJump
+  0%
+    translate: 0 0
+  10%
+    translate: 0 0
+  20%
+    translate: 0 -10px
+  30%
+    translate: 0 0
+  60%
+    translate: 0 0
+  70%
+    translate: 0 -10px
+  80%
+    translate: 0 0
+  100%
+    translate: 0 0
+
+@keyframes fadeInLightPoke
+  0%
+    opacity: 0
+  90%
+    opacity: 0
+  100%
+    opacity: 1
+
+@keyframes fadeInLight
+  0%
+    opacity: 0
+  10%
+    opacity: 1
+  100%
+    opacity: 1
 
 @keyframes fadeIn
   0%
@@ -75,6 +139,30 @@ $redglow: #ff0000af
     rotate: 10deg
   80%
     rotate: -10deg
+  100%
+    rotate: 0deg
+
+@keyframes redDotGlow
+  0%
+    opacity: 0
+  50%
+    opacity: 0
+  70%
+    opacity: 1
+  90%
+    opacity: 0
+  100%
+    opacity: 0
+
+@keyframes rotatePokeball
+  0%
+    rotate: 0deg
+  10%
+    rotate: -25deg
+  30%
+    rotate: 25deg
+  40%
+    rotate: 0deg
   100%
     rotate: 0deg
 
