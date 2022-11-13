@@ -42,13 +42,7 @@
           "
         />
       </div>
-      <div
-        v-if="
-          poke.pokemon_v2_pokemontypes &&
-          poke.pokemon_v2_pokemontypes.length == 2
-        "
-        :class="[chosen ? 'poke-type-hidden' : '']"
-      ></div>
+      <div :class="[chosen ? 'poke-type-hidden' : '']"></div>
     </div>
   </div>
 </template>
@@ -119,30 +113,30 @@ export default {
 
 .poke-type
   display: flex
-  margin: 10px
+  margin: 10px 5px
   align-items: center
   justify-content: center
+  height: 50px
   width: 120px
+  img
+    height: 50px
+    width: 50px
+
   .poke-type-show-chosen
-    height: 30px
-    width: 30px
-    margin: 0 10px
+    height: 50px
+    width: 50px
+    margin: 0 5px
     position: absolute
     img
-      scale: 1.1
-      height: 30px
-      width: 30px
+      scale: 1.05
   .poke-type-show
-    height: 30px
-    width: 30px
-    margin: 0 10px
-    img
-      height: 30px
-      width: 30px
+    height: 50px
+    width: 50px
+    margin: 0 5px
   .poke-type-hidden
-    height: 30px
-    width: 30px
-    margin: 0 10px
-    background: $shadow
+    height: 50px
+    width: 50px
+    margin: 0 5px
+    background: $chosenBackgroundFields
     border-radius: 50%
 </style>

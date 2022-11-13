@@ -19,24 +19,30 @@
 
     <div class="chosen-stats">
       <TypeImage
-        class="chosen-stats-field"
         chosen="true"
         :poke="chosenPoke"
         :clickedPokemon="clickedPokemon"
         :typeSprite="typeSprite"
       />
-      <div class="chosen-stats-field chosen-gen">
-        <div>
-          <p>GEN</p>
-        </div>
-        <div v-if="findGen()" class="chosen-gen-number fadeIn-grow">
-          <p>
-            {{ chosenPoke.pokemon_v2_pokemonspecy.generation_id }}
-          </p>
-        </div>
-        <div v-else class="chosen-number"></div>
-      </div>
-      <div class="chosen-stats-field chosen-weight">
+      <PokeStat
+        stat="GEN"
+        :found="findGen()"
+        :chosenStat="chosenPoke.pokemon_v2_pokemonspecy.generation_id"
+      />
+      <PokeStat
+        stat="WEI"
+        :found="findWeigth()"
+        :chosenStat="Math.trunc(chosenPoke.weight) / 10"
+        unit="kg"
+      />
+      <PokeStat
+        stat="HEI"
+        :found="findWeigth()"
+        :chosenStat="Math.trunc(chosenPoke.height) / 10"
+        unit="m"
+      />
+
+      <!-- <div class="chosen-stats-field chosen-weight">
         <div>
           <p>WEIGHT</p>
         </div>
@@ -44,8 +50,8 @@
           <p>{{ chosenPoke.weight / 10 }}kg</p>
         </div>
         <div v-else class="chosen-number"></div>
-      </div>
-      <div class="chosen-stats-field chosen-height">
+      </div> -->
+      <!-- <div class="chosen-stats-field chosen-height">
         <div>
           <p>HEIGHT</p>
         </div>
@@ -53,7 +59,7 @@
           <p>{{ chosenPoke.height / 10 }}m</p>
         </div>
         <div v-else class="chosen-number"></div>
-      </div>
+      </div> -->
     </div>
   </div>
   <div class="chosen-box pokechosen-loading" v-else>
@@ -65,10 +71,11 @@
 import TypeImage from '@/components/TypeImage.vue';
 import LoadingIcon from '@/components/LoadingIcon.vue';
 import ChosenSprite from '@/components/ChosenSprite.vue';
+import PokeStat from '@/components/PokeStat.vue';
 
 export default {
   name: 'PokeChosen',
-  components: { LoadingIcon, TypeImage, ChosenSprite },
+  components: { LoadingIcon, TypeImage, ChosenSprite, PokeStat },
   props: [
     'pokeList',
     'clickedPokemon',
@@ -123,9 +130,9 @@ export default {
 .chosen-box
   height: fit-content
   margin: 20px
-  width: 450px
+  width: 350px
   border-radius: 25px
-  background: $chosenBackground
+  background: $transparent
   display: flex
   flex-direction: column
   justify-content: center

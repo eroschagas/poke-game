@@ -93,11 +93,9 @@ export default {
 
 .poke-list
   position: relative
-  // width: fit-content
-
   &::before
     content: ''
-    background: linear-gradient(to bottom, white, transparent)
+    background: $fadeColorBottom
     position: absolute
     width: 100%
     height: 20px
@@ -106,7 +104,7 @@ export default {
     z-index: 10
   &::after
     content: ''
-    background: linear-gradient(to top, white , transparent )
+    background: $fadeColorTop
     position: absolute
     width: 100%
     height: 20px

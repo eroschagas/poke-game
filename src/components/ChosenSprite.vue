@@ -2,14 +2,19 @@
   <div class="chosen-sprite">
     <div class="chosen-title">
       <div class="chosen-name">
-        <h1 v-if="pokeFound">{{ upperCase(chosenPoke.name) }}</h1>
-        <h1 v-else>Who is that pokémon?</h1>
+        <ChosenName :name="upperCase(chosenPoke.name)" :pokeFound="pokeFound" />
       </div>
-      <div class="chosen-image">
-        <div v-if="pokeFound" class="pokechosen-appear-effect"></div>
+      <div
+        class="chosen-image"
+        :style="`background-image: url(${require(`../assets/background/${backgroundPick()}_bg.png`)})`"
+      >
         <div
           v-if="pokeFound"
-          class="pokechosen-sprite-mask"
+          class="pokechosen-open pokechosen-appear-effect"
+        ></div>
+        <div
+          v-if="pokeFound"
+          class="pokechosen-open pokechosen-sprite-mask"
           :style="maskImage"
         ></div>
         <!-- <img
@@ -57,6 +62,8 @@
 </template>
 
 <script>
+import ChosenName from './ChosenName.vue';
+
 export default {
   name: 'ChosenSprite',
   props: [
@@ -69,7 +76,11 @@ export default {
   data() {
     return {
       open: 'closed',
+      random: Math.floor(Math.random() * 8),
     };
+  },
+  created() {
+    this.backgroundPick();
   },
   watch: {
     pokeFound() {
@@ -95,17 +106,16 @@ export default {
     },
     tile() {
       const tiles = [
-        'forest-tile',
-        'grass-tile',
-        'ground-tile',
-        'rock-tile',
-        'snow-tile',
-        'street-tile',
-        'water-tile',
-        'wood-tile',
+        'forest',
+        'grass',
+        'ground',
+        'rock',
+        'snow',
+        'street',
+        'water',
+        'wood',
       ];
-      let random = Math.floor(Math.random() * 8);
-      return require(`../assets/typeTile/${tiles[random]}.png`);
+      return require(`../assets/typeTile/${tiles[this.random]}-tile.png`);
     },
     pokeballType() {
       const pokeball = ['pokeball', 'greatball', 'ultraball', 'masterball'];
@@ -123,6 +133,20 @@ export default {
     },
   },
   methods: {
+    backgroundPick() {
+      const background = [
+        'forest',
+        'grass',
+        'desert',
+        'cave',
+        'snow',
+        'dark',
+        'water',
+        'mistery',
+      ];
+      return background[this.random];
+    },
+
     pokeball(status) {
       switch (status) {
         case 'closed':
@@ -134,6 +158,7 @@ export default {
       }
     },
   },
+  components: { ChosenName },
 };
 </script>
 
@@ -174,6 +199,27 @@ export default {
   height: 200px
   width: 300px
   position: relative
+  // background-image: url('../assets/background/basic.png')
+  background-repeat: no-repeat
+  background-size: cover
+  image-rendering: pixelated
+  overflow: hidden
+  &::after
+    content: ''
+    width: 30px
+    height: 100%
+    background: $fadeColorLeft
+    position: absolute
+    right: 0
+    z-index: 100
+  &::before
+    content: ''
+    width: 30px
+    height: 100%
+    background: $fadeColorRight
+    position: absolute
+    left: 0
+    z-index: 100
 
 .chosen-tile
   display: flex
@@ -204,35 +250,29 @@ export default {
   left: 49px
   animation: redDotGlow 2s 1s infinite ease-in-out
 
-.chosen-name
-  display: flex
-  justify-content: center
-  align-items: center
-  text-align: center
-  height: 82px
-
-.pokechosen-appear-effect
+.pokechosen-open
   background: red
   position: absolute
+
+.pokechosen-appear-effect
   z-index: 102
   bottom: -55px
   width: 230px
   height: 230px
   border-radius: 50%
   opacity: 0
+  scale: 0
   animation-name: lightOut, lightForm
-  animation-duration: 1s, 3s
+  animation-duration: 1.2s, 2.5s
   animation-timing-function: ease-out, ease-in-out
   animation-iteration-count: 1, 1
-  animation-delay: .5s, 1.5s
+  animation-delay: .3s, 1.5s
 
 .pokechosen-sprite-mask
   height: 56px
   width: 68px
   scale: 4
   opacity: 0
-  background: red
-  position: absolute
   bottom: 100px
   z-index: 101
   mask-mode: alpha
@@ -242,5 +282,5 @@ export default {
   animation-duration: 3s, .8s
   animation-timing-function: linear, ease-out
   animation-iteration-count: 1, 1
-  animation-delay: 1.5s, 4s
+  animation-delay: 1s, 4s
 </style>
