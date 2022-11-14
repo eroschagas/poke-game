@@ -97,7 +97,7 @@ export default {
   },
   computed: {
     maskImage() {
-      return `mask-image: url(${this.pokeSprite(
+      return `-webkit-mask-image: url(${this.pokeSprite(
         this.randomPokemon,
         'versions',
         'generation-viii',
@@ -277,6 +277,8 @@ export default {
   z-index: 101
   mask-mode: alpha
   mask-repeat: no-repeat
+  -webkit-mask-mode: alpha
+  -webkit-mask-repeat: no-repeat
   image-rendering: pixelated
   animation-name: fadeInLight, fadeOut
   animation-duration: 3s, .8s
