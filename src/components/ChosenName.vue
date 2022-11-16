@@ -53,6 +53,7 @@ export default {
   justify-content: center
   align-items: center
   text-align: center
-  height: 82px
+  // height: 82px
   width: 300px
+  font-size: 10px
 </style>

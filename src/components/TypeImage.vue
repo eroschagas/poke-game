@@ -118,7 +118,7 @@ export default {
 
 .poke-type
   display: flex
-  margin: 10px 5px
+  margin: 10px 5px 5px 10px
   align-items: center
   justify-content: center
   height: 50px

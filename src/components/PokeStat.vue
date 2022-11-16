@@ -29,7 +29,7 @@ export default {
   height: 50px
   width: 50px
   // box-shadow: 2px 2px 2px $shadow
-  margin: 10px 10px 10px 0
+  margin: 10px 10px 5px 0
   white-space: nowrap
   border-radius: 50%
   font-family: $pixel
