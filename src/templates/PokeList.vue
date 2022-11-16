@@ -92,6 +92,10 @@ export default {
   background: $transparent
 
 .poke-list
+  height: 100vh
+  // width: 55%
+  margin: 0 10px
+
   position: relative
   &::before
     content: ''

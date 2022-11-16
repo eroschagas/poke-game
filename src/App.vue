@@ -198,10 +198,10 @@ export default {
   position: fixed
   cursor: pointer
 
-.pokelist
-  height: 100vh
-  width: 55%
-  margin: 0 10px
+// .pokelist
+//   height: 100vh
+//   width: 55%
+//   margin: 0 10px
 .section-1
   // display: flex
   // flex-direction: column
