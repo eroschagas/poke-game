@@ -154,7 +154,7 @@ export default {
 
 .pick-sprite
   opacity: 0
-  animation: fadeIn 0.5s 0.3s forwards ease-out
+  animation: fadeIn 0.5s 0.5s forwards ease-out
   margin: 10px
   img
     position: absolute
@@ -165,7 +165,7 @@ export default {
 
 .type-fade
   opacity: 0
-  animation: fadeIn 0.5s 0.3s forwards ease-out
+  animation: fadeIn 0.5s 0.5s forwards ease-out
 
 .pick-value
   // margin: 10px 20px 10px 10px
