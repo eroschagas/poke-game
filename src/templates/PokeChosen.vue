@@ -1,13 +1,5 @@
 <template>
   <div v-if="chosenPoke && !loadingList" class="chosen-box">
-    <!-- <div v-if="pokeFound" class="chosen-title"> -->
-    <!-- <div v-if="true" class="chosen-title">
-      <h1>{{ upperCase(chosenPoke.name) }}</h1>
-      <img
-        :src="pokeSprite(this.randomPokemon, 'other', 'official-artwork')"
-        alt="Secret Pokemon"
-      />
-    </div> -->
     <ChosenSprite
       class="chosen-sprite"
       :upperCase="upperCase"
@@ -19,7 +11,7 @@
 
     <div class="chosen-stats">
       <TypeImage
-        chosen="true"
+        :chosen="true"
         :poke="chosenPoke"
         :clickedPokemon="clickedPokemon"
         :typeSprite="typeSprite"
@@ -41,25 +33,6 @@
         :chosenStat="Math.trunc(chosenPoke.height) / 10"
         unit="m"
       />
-
-      <!-- <div class="chosen-stats-field chosen-weight">
-        <div>
-          <p>WEIGHT</p>
-        </div>
-        <div v-if="findWeigth()" class="chosen-weight-number fadeIn-grow">
-          <p>{{ chosenPoke.weight / 10 }}kg</p>
-        </div>
-        <div v-else class="chosen-number"></div>
-      </div> -->
-      <!-- <div class="chosen-stats-field chosen-height">
-        <div>
-          <p>HEIGHT</p>
-        </div>
-        <div v-if="findHeight()" class="chosen-height-number fadeIn-grow">
-          <p>{{ chosenPoke.height / 10 }}m</p>
-        </div>
-        <div v-else class="chosen-number"></div>
-      </div> -->
     </div>
   </div>
   <div class="chosen-box pokechosen-loading" v-else>
@@ -130,14 +103,13 @@ export default {
 .chosen-box
   height: fit-content
   margin: 20px
-  width: 350px
+  width: 310px
   border-radius: 25px
   background: $transparent
   display: flex
   flex-direction: column
   justify-content: center
   align-items: center
-  // box-shadow: 2px 2px 2px $shadow
 
 .chosen-stats
   display: flex
@@ -170,7 +142,6 @@ export default {
   flex-direction: column
   align-items: center
   justify-content: center
-
 
 .chosen-height
   width: 85px

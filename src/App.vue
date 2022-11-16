@@ -81,7 +81,7 @@ export default {
     },
     randomPokemon() {
       // return Math.floor(Math.random() * this.maxPokemon);
-      return 5;
+      return 9;
     },
     chosenPoke() {
       if (this.pokeList) {

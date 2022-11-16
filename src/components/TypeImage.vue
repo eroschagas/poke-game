@@ -5,44 +5,34 @@
         :class="[
           chosen ? 'poke-type-show-chosen fadeIn-swirl-grow' : 'poke-type-show',
         ]"
-        v-if="poke.pokemon_v2_pokemontypes && chosenType1"
+        v-if="pokeType && chosenType1"
       >
         <img
-          :src="
-            typeSprite(poke.pokemon_v2_pokemontypes[0].pokemon_v2_type.name)
-          "
-          :alt="
-            chosen
-              ? 'Secret Type'
-              : poke.pokemon_v2_pokemontypes[0].pokemon_v2_type.name
-          "
+          :class="translateType"
+          :src="typeSprite(pokeType[0].pokemon_v2_type.name)"
+          :alt="chosen ? 'Secret Type' : pokeType[0].pokemon_v2_type.name"
         />
       </div>
-      <div :class="[chosen ? 'poke-type-hidden' : '']"></div>
+      <div :class="[hiddenSlot, translateType]"></div>
     </div>
     <div>
       <div
         :class="[
           chosen ? 'poke-type-show-chosen fadeIn-swirl-grow' : 'poke-type-show',
         ]"
-        v-if="
-          poke.pokemon_v2_pokemontypes &&
-          poke.pokemon_v2_pokemontypes.length == 2 &&
-          chosenType2
-        "
+        v-if="pokeType.length == 2 && chosenType2"
       >
         <img
-          :src="
-            typeSprite(poke.pokemon_v2_pokemontypes[1].pokemon_v2_type.name)
-          "
-          :alt="
-            chosen
-              ? 'Secret Type'
-              : poke.pokemon_v2_pokemontypes[1].pokemon_v2_type.name
-          "
+          :src="typeSprite(pokeType[1].pokemon_v2_type.name)"
+          :alt="chosen ? 'Secret Type' : pokeType[1].pokemon_v2_type.name"
         />
       </div>
-      <div :class="[chosen ? 'poke-type-hidden' : '']"></div>
+      <div
+        :class="[
+          hiddenSlot,
+          chosenType1 && pokeType.length == 1 ? 'poke-type-hidden-single' : '',
+        ]"
+      ></div>
     </div>
   </div>
 </template>
@@ -55,6 +45,9 @@ export default {
     return {
       type1: false,
       type2: false,
+      pokeType: this.poke.pokemon_v2_pokemontypes
+        ? this.poke.pokemon_v2_pokemontypes
+        : [],
     };
   },
   watch: {
@@ -68,6 +61,18 @@ export default {
     },
   },
   computed: {
+    translateType() {
+      if (this.chosen && this.chosenType1 && this.pokeType.length == 1) {
+        return 'poke-type-show-single';
+      }
+      return '';
+    },
+    hiddenSlot() {
+      if (this.chosen) {
+        return 'poke-type-hidden';
+      }
+      return '';
+    },
     chosenType1() {
       if (this.chosen) {
         if (this.type1) {
@@ -139,4 +144,10 @@ export default {
     margin: 0 5px
     background: $chosenBackgroundFields
     border-radius: 50%
+    position: relative
+    z-index: -1
+  .poke-type-hidden-single
+    animation: fadeOut 1s forwards ease-out
+  .poke-type-show-single
+    animation: centerTypeSprite 0.5s 1s forwards ease-in-out
 </style>
