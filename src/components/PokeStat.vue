@@ -43,10 +43,12 @@ export default {
   background: $chosenBackgroundFields
   border-radius: 5px
   padding: 0 3px
+  z-index: 10
 
 .chosen-stats-unit
   position: absolute
   bottom: 3px
   font-size: 9px
   text-rendering: geometricPrecision
+  z-index: 10
 </style>
