@@ -3,6 +3,8 @@
   padding: 0
   box-sizing: border-box
 
+$pageBackground: #fff
+
 $cursive: 'Goldman', cursive
 $pixel: 'Silkscreen', cursive
 
@@ -24,10 +26,10 @@ $redglow: #ff0000af
 
 $pokeLightShape: radial-gradient(#ff0000 50%, transparent 70%)
 
-$fadeColorBottom: linear-gradient(to bottom, white, transparent)
-$fadeColorTop: linear-gradient(to top, white, transparent)
-$fadeColorRight: linear-gradient(to right, white, transparent)
-$fadeColorLeft: linear-gradient(to left, white, transparent)
+$fadeColorBottom: linear-gradient(to bottom, $pageBackground, transparent)
+$fadeColorTop: linear-gradient(to top, $pageBackground, transparent)
+$fadeColorRight: linear-gradient(to right, $pageBackground, transparent)
+$fadeColorLeft: linear-gradient(to left, $pageBackground, transparent)
 
 @keyframes lightOut
   0%

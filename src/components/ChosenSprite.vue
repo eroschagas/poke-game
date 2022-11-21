@@ -28,12 +28,7 @@
           v-if="pokeFound"
           class="pokechosen-sprite"
           :src="
-            pokeSprite(
-              this.randomPokemon,
-              'versions',
-              'generation-viii',
-              'icons'
-            )
+            pokeSprite(randomPokemon, 'versions', 'generation-viii', 'icons')
           "
           alt="Secret Pokemon"
         />

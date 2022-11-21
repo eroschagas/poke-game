@@ -1,27 +1,41 @@
 <template>
   <div class="poke-list">
-    <div class="all-pokemon">
-      <div class="poke-cards" v-for="(item, index) in pokeList" :key="index">
-        <div v-if="pokeFound" class="win-overlay"></div>
+    <div class="poke-search">
+      <input
+        @keyup.enter="pokePick(pokeListFilter[0])"
+        ref="inputSearch"
+        type="text"
+        v-model="filter"
+      />
+    </div>
+    <div class="list-wrapper">
+      <div :key="testekey" class="all-pokemon">
         <div
-          @click="pickPokemon(item)"
-          :class="[
-            'poke-card',
-            'fade-in',
-            pokeMissed(item) ? 'poke-card-disabled' : 'poke-card-hover',
-            pokeFind(item) ? 'poke-card-found' : '',
-          ]"
-          v-if="pokeList.length"
+          :class="allowLoadingFade ? 'poke-cards' : ''"
+          v-for="(item, index) in pokeListFilter"
+          :key="index"
         >
-          <!-- <h1>{{ item.name }}</h1> -->
-          <div>
-            <div class="pokeball-top"></div>
-            <div class="pokeball-bot"></div>
-            <img
-              class="fade-in-delay hide-alt"
-              :src="pokeSprite(index)"
-              :alt="item.name"
-            />
+          <div v-if="pokeFound" class="win-overlay"></div>
+          <div
+            @click="pokePick(item)"
+            :class="[
+              'poke-card',
+              'fade-in',
+              pokeMissed(item) ? 'poke-card-disabled' : 'poke-card-hover',
+              pokeFind(item) ? 'poke-card-found' : '',
+            ]"
+            v-if="pokeList.length"
+          >
+            <!-- <h1>{{ item.name }}</h1> -->
+            <div>
+              <div class="pokeball-top"></div>
+              <div class="pokeball-bot"></div>
+              <img
+                :class="(allowLoadingFade ? 'fade-in-delay' : '', 'hide-alt')"
+                :src="pokeSprite(item.id)"
+                :alt="item.name"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -45,13 +59,37 @@ export default {
     'pokeFound',
     'pokeMissed',
     'loadingList',
+    'allowLoadingFade',
   ],
+  components: { LoadingIcon },
   data() {
     return {
-      isLoaded: [],
+      filter: '',
+      testekey: 0,
     };
   },
-  components: { LoadingIcon },
+  watch: {
+    filter() {
+      this.testekey += 1;
+    },
+  },
+  computed: {
+    pokeListFilter() {
+      if (this.filter.length > 0) {
+        return this.pokeList.filter((p) => p.name.indexOf(this.filter) > -1);
+      }
+      return this.pokeList;
+    },
+  },
+  methods: {
+    pokePick(item) {
+      this.pickPokemon(item);
+      setTimeout(() => {
+        this.filter = '';
+        this.$refs.inputSearch.focus();
+      }, 500);
+    },
+  },
 };
 </script>
 
@@ -72,12 +110,13 @@ export default {
 
 .all-pokemon
   margin: 0 10px
-  height: 100%
+  max-height: 100%
   padding: 25px
   overflow-y: scroll
   display: flex
   flex-wrap: wrap
-  justify-content: center
+  justify-content: flex-start
+  align-items: flex-start
 
 .poke-cards
   opacity: 0
@@ -92,29 +131,12 @@ export default {
   background: $transparent
 
 .poke-list
-  height: 100vh
-  // width: 55%
-  margin: 0 10px
+  padding-top: 20px
+  // height: calc( 100vh - 30px )
+  width: 100%
+  // margin: 0 10px
+  // flex-grow: 3
 
-  position: relative
-  &::before
-    content: ''
-    background: $fadeColorBottom
-    position: absolute
-    width: 100%
-    height: 20px
-    top: 0
-    left: 0
-    z-index: 10
-  &::after
-    content: ''
-    background: $fadeColorTop
-    position: absolute
-    width: 100%
-    height: 20px
-    bottom: 0
-    left: 0
-    z-index: 10
 
 .poke-card
   width: 90px
@@ -205,4 +227,34 @@ export default {
 .list-loading
   height: 50px
   width: 50px
+
+.poke-search
+  height: 30px
+  margin: 10px 70px
+  input
+    height: 30px
+    width: 300px
+    outline: none
+.list-wrapper
+  height: calc( 100vh - 70px )
+  position: relative
+  &::before
+    content: ''
+    background: $fadeColorBottom
+    // background: red
+    position: absolute
+    width: calc( 100% - 30px )
+    height: 20px
+    top: 0
+    left: 0
+    z-index: 10
+  &::after
+    content: ''
+    background: $fadeColorTop
+    position: absolute
+    width: calc( 100% - 30px )
+    height: 20px
+    bottom: 0
+    left: 0
+    z-index: 10
 </style>

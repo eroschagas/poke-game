@@ -17,20 +17,23 @@
         :typeSprite="typeSprite"
       />
       <PokeStat
-        stat="GEN"
+        statName="GEN"
+        :chosen="true"
         :found="findGen()"
-        :chosenStat="chosenPoke.pokemon_v2_pokemonspecy.generation_id"
+        :stat="chosenPoke.pokemon_v2_pokemonspecy.generation_id"
       />
       <PokeStat
-        stat="WEI"
+        statName="WEI"
+        :chosen="true"
         :found="findWeigth()"
-        :chosenStat="Math.trunc(chosenPoke.weight) / 10"
+        :stat="chosenPoke.weight / 10"
         unit="kg"
       />
       <PokeStat
-        stat="HEI"
-        :found="findWeigth()"
-        :chosenStat="Math.trunc(chosenPoke.height) / 10"
+        statName="HEI"
+        :chosen="true"
+        :found="findHeight()"
+        :stat="chosenPoke.height / 10"
         unit="m"
       />
     </div>
@@ -103,7 +106,7 @@ export default {
 .chosen-box
   height: fit-content
   margin: 20px
-  width: 310px
+  width: 315px
   border-radius: 25px
   background: $transparent
   display: flex

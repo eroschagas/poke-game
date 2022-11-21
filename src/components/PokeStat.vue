@@ -1,10 +1,13 @@
 <template>
   <div class="chosen-stats-field-2">
     <div class="chosen-stats-title">
+      <p>{{ statName }}</p>
+    </div>
+    <div v-if="found" :class="[chosen ? 'fadeIn-grow' : '']">
       <p>{{ stat }}</p>
     </div>
-    <div v-if="found" class="fadeIn-grow">
-      <p>{{ chosenStat }}</p>
+    <div v-if="!chosen" class="fadeIn-grow compare">
+      <ion-icon :name="icon"></ion-icon>
     </div>
     <p v-if="found" class="chosen-stats-unit fade-in">{{ unit }}</p>
   </div>
@@ -13,7 +16,18 @@
 <script>
 export default {
   name: 'PokeStat',
-  props: ['stat', 'found', 'chosenStat', 'unit'],
+  props: ['statName', 'found', 'stat', 'unit', 'chosenStat', 'chosen'],
+  computed: {
+    icon() {
+      if (this.chosenStat > this.stat) {
+        return 'arrow-up-circle-outline';
+      }
+      if (this.chosenStat < this.stat) {
+        return 'arrow-down-circle-outline';
+      }
+      return 'checkmark-circle-outline';
+    },
+  },
 };
 </script>
 
@@ -51,4 +65,17 @@ export default {
   font-size: 9px
   text-rendering: geometricPrecision
   z-index: 10
+
+.compare
+  position: absolute
+  left: -5px
+  bottom: -3px
+  background: $chosenBackgroundFields
+  height: 20px
+  width: 20px
+  display: flex
+  justify-content: center
+  align-items: center
+  font-size: 20px
+  border-radius: 50%
 </style>

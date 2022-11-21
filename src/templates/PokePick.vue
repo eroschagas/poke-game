@@ -1,8 +1,14 @@
 <template>
   <div class="sect">
-    <div ref="teste" class="pick-section">
+    <div ref="pickSection" class="pick-section">
       <div v-for="(item, index) in clickedPokemon" :key="index">
-        <div :id="item.id" :ref="'card-' + item.id" class="pick-card slideLeft">
+        <div
+          v-if="eraseList(index)"
+          :id="item.id"
+          :ref="'card-' + item.id"
+          class="pick-card slideLeft"
+          :style="`z-index: ${parseInt(10000 - index)}`"
+        >
           <div class="pick-stats-wrap">
             <div class="pick-name-type">
               <div class="pick-value pick-name">{{ item.name }}</div>
@@ -21,20 +27,23 @@
                 :typeSprite="typeSprite"
               />
               <PokeStat
-                stat="GEN"
+                statName="GEN"
                 found="true"
-                :chosenStat="item.pokemon_v2_pokemonspecy.generation_id"
+                :stat="item.pokemon_v2_pokemonspecy.generation_id"
+                :chosenStat="chosenPoke.pokemon_v2_pokemonspecy.generation_id"
               />
               <PokeStat
-                stat="WEI"
+                statName="WEI"
                 found="true"
-                :chosenStat="Math.trunc(item.weight) / 10"
+                :stat="item.weight / 10"
+                :chosenStat="chosenPoke.weight / 10"
                 unit="kg"
               />
               <PokeStat
-                stat="HEI"
+                statName="HEI"
                 found="true"
-                :chosenStat="Math.trunc(item.height) / 10"
+                :stat="item.height / 10"
+                :chosenStat="chosenPoke.height / 10"
                 unit="m"
               />
             </div>
@@ -81,7 +90,13 @@ import TypeImage from '@/components/TypeImage.vue';
 
 export default {
   name: 'PokePick',
-  props: ['clickedPokemon', 'pokeSprite', 'chosenPoke', 'typeSprite'],
+  props: [
+    'clickedPokemon',
+    'pokeSprite',
+    'chosenPoke',
+    'typeSprite',
+    'clickedPokemonLimit',
+  ],
   computed: {
     listMin() {
       if (this.clickedPokemon.length >= 4) {
@@ -98,16 +113,29 @@ export default {
       deep: true,
       handler() {
         this.$nextTick(() => {
-          var lastCardHeight =
-            this.$refs[
-              'card-' + this.clickedPokemon[this.clickedPokemon.length - 1].id
-            ][0].offsetHeight;
-          this.$refs.teste.scrollTo(
-            0,
-            this.clickedPokemon.length * lastCardHeight
-          );
+          // var lastCardHeight =
+          //   this.$refs[
+          //     'card-' + this.clickedPokemon[this.clickedPokemon.length - 1].id
+          //   ][0].offsetHeight;
+          // this.$refs.pickSection.scrollTo(
+          //   0,
+          //   this.clickedPokemon.length * lastCardHeight
+          // );
+          // setTimeout(() => {
+          this.$refs.pickSection.scrollTo(0, -1000000);
+          // }, 100);
         });
       },
+    },
+  },
+  methods: {
+    eraseList(index) {
+      if (index > this.clickedPokemon.length - 10) {
+        return true;
+      }
+      setTimeout(() => {
+        return false;
+      }, 500);
     },
   },
   components: { TypeImage, PokeStat },
@@ -118,24 +146,45 @@ export default {
 @import '../variables.sass'
 
 .pick-section
-  max-height: 460px
+  max-height: 295px
   min-height: 160px
-  width: fit-content
-  overflow-y: hidden
+  width: 355px
+  overflow-y: scroll
   overflow-x: hidden
   scroll-behavior: smooth
   padding-top: 40px
-  // display: flex
-  // flex-direction: column
+  display: flex
+  // background: red
+  flex-direction: column-reverse
+  transition: all is ease-in
   // justify-content: center
   // align-items: flex-end
-
+  position: relative
 
 .sect
   position: relative
   // height: 256px
-  width: fit-content
+  width: 355px
   // margin: 20px
+  &::before
+    content: ''
+    width: 100%
+    height: 40px
+    background: $fadeColorBottom
+    // background: blue
+    position: absolute
+    z-index: 10001
+    top: 0
+  &::after
+    content: ''
+    width: 100%
+    height: 40px
+    background: $fadeColorTop
+    // background: blue
+    position: absolute
+    z-index: 10001
+    bottom: 0
+
 
 .smooth
   position: absolute
@@ -151,6 +200,7 @@ export default {
   display: flex
   justify-content: flex-start
   align-items: center
+  position: relative
 
 .pick-sprite
   opacity: 0
@@ -159,7 +209,7 @@ export default {
   img
     position: absolute
     left: -20px
-    top: -40px
+    top: -30px
     height: 100px
     width: 100px
 
@@ -221,7 +271,7 @@ export default {
   border-radius: 30px
   width: 310px
   position: relative
-  margin: 10px 20px
+  margin: 10px 5px 10px 20px
   display: flex
   flex-direction: column
   justify-content: flex-end

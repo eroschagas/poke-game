@@ -19,6 +19,7 @@
         :clickedPokemon="clickedPokemon"
         :pokeSprite="pokeSprite"
         :chosenPoke="chosenPoke"
+        :clickedPokemonLimit="clickedPokemonLimit"
       />
     </div>
     <PokeList
@@ -31,6 +32,7 @@
       :pokeFind="pokeFind"
       :pokeFound="pokeFound"
       :pokeMissed="pokeMissed"
+      :allowLoadingFade="allowLoadingFade"
     />
   </div>
 </template>
@@ -52,8 +54,11 @@ export default {
     return {
       pokeList: [],
       clickedPokemon: [],
+      clickedPokemonLimit: [],
       pokeFound: false,
       loadingList: true,
+      allowLoadingFade: true,
+      disableClick: 0,
     };
   },
   async created() {
@@ -80,7 +85,7 @@ export default {
       );
     },
     randomPokemon() {
-      // return Math.floor(Math.random() * this.maxPokemon);
+      // return Math.floor(Math.random() * this.maxPokemon.length);
       return 5;
     },
     chosenPoke() {
@@ -103,6 +108,7 @@ export default {
 
     async getPokemon() {
       this.loadingList = true;
+      this.allowLoadingFade = true;
       try {
         const result = await axios({
           method: 'POST',
@@ -134,6 +140,9 @@ export default {
         setTimeout(() => {
           this.loadingList = false;
         }, 2000);
+        setTimeout(() => {
+          this.allowLoadingFade = false;
+        }, 3000);
       } catch (error) {
         console.error(error);
       }
@@ -141,24 +150,26 @@ export default {
     typeSprite(type) {
       return require('./assets/typeSprite/' + this.upperCase(type) + '.svg');
     },
-    pokeSprite(index = 0, type = 'front_default', second_type, third_type) {
+    pokeSprite(id = 0, type = 'front_default', second_type, third_type) {
+      // let k = this.pokeList.find((p) => p.id == id);
+      // let k = this.pokeList[id + 1];
       if (this.pokeList.length) {
         switch (type) {
           case 'other':
             var jsonOther = JSON.parse(
-              this.pokeList[index].pokemon_v2_pokemonsprites[0].sprites
+              this.pokeList[id].pokemon_v2_pokemonsprites[0].sprites
             )[type][second_type].front_default;
             return jsonOther;
 
           case 'versions':
             var jsonVersions = JSON.parse(
-              this.pokeList[index].pokemon_v2_pokemonsprites[0].sprites
+              this.pokeList[id].pokemon_v2_pokemonsprites[0].sprites
             )[type][second_type][third_type].front_default;
             return jsonVersions;
 
           default:
             var jsonDefault = JSON.parse(
-              this.pokeList[index].pokemon_v2_pokemonsprites[0].sprites
+              this.pokeList[id - 1].pokemon_v2_pokemonsprites[0].sprites
             )[type];
             return jsonDefault;
         }
@@ -168,6 +179,14 @@ export default {
       return string.charAt(0).toUpperCase() + string.slice(1);
     },
     pickPokemon(item) {
+      if (this.clickedPokemon.includes(item)) {
+        return;
+      }
+      if (Date.now() - this.disableClick < 700) {
+        return;
+      }
+      this.disableClick = Date.now();
+
       if (!this.pokeMissed(item) && !this.pokeFound) {
         this.clickedPokemon.push(item);
       }
@@ -200,10 +219,12 @@ export default {
 
 // .pokelist
 //   height: 100vh
-//   width: 55%
+  // width: 100%
 //   margin: 0 10px
+//   flex-grow: 1
+
 .section-1
   // display: flex
   // flex-direction: column
-  width: 45%
+  // width: 45%
 </style>
