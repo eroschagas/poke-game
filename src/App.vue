@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="console" @click="teste">console.log</div>
+    <!-- <div class="console" @click="teste">console.log</div> -->
 
     <div class="section-1">
       <PokeChosen
