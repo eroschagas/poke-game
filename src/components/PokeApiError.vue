@@ -5,9 +5,15 @@
         <img src="../assets/weedle-gif.gif" alt="weedle-gif" />
       </div>
       <div class="error-graphql">
-        <h1>PokeApi GraphQL server is in maintenance!</h1>
+        <h1>PokeApi GraphQL server is offline!</h1>
         <p>Please come back later...</p>
       </div>
+      <p>
+        This website uses a free api at
+        <a href="https://pokeapi.co/docs/graphql" target="_blank"
+          >https://pokeapi.co/docs/graphql</a
+        >
+      </p>
     </div>
   </transition>
 </template>
@@ -49,6 +55,11 @@ export default {
     flex-direction: column
     justify-content: center
     align-items: center
+    p
+        text-align: center
+        margin-top: 8px
+        a
+            white-space: nowrap
 .error-img
     max-width: 800px
     width: 100%
