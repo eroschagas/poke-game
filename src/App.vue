@@ -2,9 +2,9 @@
   <div class="home">
     <PokeApiError :pokeApi="pokeApi" />
     <!-- <div class="console" @click="teste">console.log</div> -->
-
-    <div class="section-1">
-      <PokeChosen
+    <div v-if="pokeApi">
+      <div class="section-1">
+        <PokeChosen
         :loadingList="loadingList"
         :pokeList="pokeList"
         :randomPokemon="randomPokemon"
@@ -14,16 +14,16 @@
         :typeSprite="typeSprite"
         :chosenPoke="chosenPoke"
         :pokeFound="pokeFound"
-      />
-      <PokePick
+        />
+        <PokePick
         :typeSprite="typeSprite"
         :clickedPokemon="clickedPokemon"
         :pokeSprite="pokeSprite"
         :chosenPoke="chosenPoke"
         :clickedPokemonLimit="clickedPokemonLimit"
-      />
-    </div>
-    <PokeList
+        />
+      </div>
+      <PokeList
       class="pokelist"
       :loadingList="loadingList"
       :pokeList="pokeList"
@@ -34,7 +34,8 @@
       :pokeFound="pokeFound"
       :pokeMissed="pokeMissed"
       :allowLoadingFade="allowLoadingFade"
-    />
+      />
+    </div>
   </div>
 </template>
 
