@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <PokeApiError :pokeApi="pokeApi" />
     <!-- <div class="console" @click="teste">console.log</div> -->
 
     <div class="section-1">
@@ -42,6 +43,7 @@ import axios from 'axios';
 import PokeList from './templates/PokeList.vue';
 import PokeChosen from './templates/PokeChosen.vue';
 import PokePick from './templates/PokePick.vue';
+import PokeApiError from './components/PokeApiError.vue';
 
 export default {
   name: 'App',
@@ -49,6 +51,7 @@ export default {
     PokeList,
     PokeChosen,
     PokePick,
+    PokeApiError,
   },
   data() {
     return {
@@ -59,6 +62,7 @@ export default {
       loadingList: true,
       allowLoadingFade: true,
       disableClick: 0,
+      pokeApi: true,
     };
   },
   async created() {
@@ -143,8 +147,10 @@ export default {
         setTimeout(() => {
           this.allowLoadingFade = false;
         }, 3000);
+        this.pokeApi = true;
       } catch (error) {
         console.error(error);
+        this.pokeApi = false;
       }
     },
     typeSprite(type) {
