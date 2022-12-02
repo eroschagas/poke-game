@@ -1,40 +1,41 @@
 <template>
   <div class="home">
     <PokeApiError :pokeApi="pokeApi" />
-    <div class="console" @click="teste">console.log</div>
-
-    <div class="section-1">
-      <PokeChosen
+    <!-- <div class="console" @click="teste">console.log</div> -->
+    <div v-if="pokeApi">
+      <div class="section-1">
+        <PokeChosen
+          :loadingList="loadingList"
+          :pokeList="pokeList"
+          :randomPokemon="randomPokemon"
+          :clickedPokemon="clickedPokemon"
+          :pokeSprite="pokeSprite"
+          :upperCase="upperCase"
+          :typeSprite="typeSprite"
+          :chosenPoke="chosenPoke"
+          :pokeFound="pokeFound"
+        />
+        <PokePick
+          :typeSprite="typeSprite"
+          :clickedPokemon="clickedPokemonDelayed"
+          :pokeSprite="pokeSprite"
+          :chosenPoke="chosenPoke"
+          :clickedPokemonLimit="clickedPokemonLimit"
+        />
+      </div>
+      <PokeList
+        class="pokelist"
         :loadingList="loadingList"
         :pokeList="pokeList"
-        :randomPokemon="randomPokemon"
-        :clickedPokemon="clickedPokemon"
+        :pickPokemon="pickPokemon"
         :pokeSprite="pokeSprite"
-        :upperCase="upperCase"
-        :typeSprite="typeSprite"
         :chosenPoke="chosenPoke"
+        :pokeFind="pokeFind"
         :pokeFound="pokeFound"
-      />
-      <PokePick
-        :typeSprite="typeSprite"
-        :clickedPokemon="clickedPokemonDelayed"
-        :pokeSprite="pokeSprite"
-        :chosenPoke="chosenPoke"
-        :clickedPokemonLimit="clickedPokemonLimit"
+        :pokeMissed="pokeMissed"
+        :allowLoadingFade="allowLoadingFade"
       />
     </div>
-    <PokeList
-      class="pokelist"
-      :loadingList="loadingList"
-      :pokeList="pokeList"
-      :pickPokemon="pickPokemon"
-      :pokeSprite="pokeSprite"
-      :chosenPoke="chosenPoke"
-      :pokeFind="pokeFind"
-      :pokeFound="pokeFound"
-      :pokeMissed="pokeMissed"
-      :allowLoadingFade="allowLoadingFade"
-    />
   </div>
 </template>
 
