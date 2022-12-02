@@ -254,7 +254,8 @@ export default {
 //   flex-grow: 1
 
 .section-1
-  // display: flex
+  display: flex
+  justify-content: center
   // flex-direction: column
   // width: 45%
 </style>
