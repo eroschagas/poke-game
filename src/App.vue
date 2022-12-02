@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <PokeApiError :pokeApi="pokeApi" />
-    <!-- <div class="console" @click="teste">console.log</div> -->
+    <div class="console" @click="teste">console.log</div>
 
     <div class="section-1">
       <PokeChosen
@@ -17,7 +17,7 @@
       />
       <PokePick
         :typeSprite="typeSprite"
-        :clickedPokemon="clickedPokemon"
+        :clickedPokemon="clickedPokemonDelayed"
         :pokeSprite="pokeSprite"
         :chosenPoke="chosenPoke"
         :clickedPokemonLimit="clickedPokemonLimit"
@@ -57,7 +57,10 @@ export default {
     return {
       pokeList: [],
       clickedPokemon: [],
+      clickedPokemonDelayed: [],
+      clickedPokemonBuffer: [],
       clickedPokemonLimit: [],
+      pokePush: false,
       pokeFound: false,
       loadingList: true,
       allowLoadingFade: true,
@@ -69,6 +72,11 @@ export default {
     await this.getPokemon();
   },
   watch: {
+    pokePush() {
+      if (this.clickedPokemonBuffer.length > 0 && this.pokePush == true) {
+        this.buffer();
+      }
+    },
     clickedPokemon: {
       deep: true,
       handler() {
@@ -100,6 +108,17 @@ export default {
     },
   },
   methods: {
+    buffer() {
+      this.clickedPokemonDelayed.push(this.clickedPokemonBuffer[0]);
+      this.clickedPokemonBuffer.shift();
+      setTimeout(() => {
+        if (this.clickedPokemonBuffer.length == 0) {
+          this.pokePush = false;
+          return;
+        }
+        this.buffer();
+      }, 700);
+    },
     teste() {
       console.log(this.clickedPokemon);
       console.log(this.pokeList);
@@ -188,13 +207,17 @@ export default {
       if (this.clickedPokemon.includes(item)) {
         return;
       }
-      if (Date.now() - this.disableClick < 700) {
-        return;
-      }
-      this.disableClick = Date.now();
+      // if (Date.now() - this.disableClick < 700) {
+      //   return;
+      // }
+      // this.disableClick = Date.now();
 
       if (!this.pokeMissed(item) && !this.pokeFound) {
+        this.clickedPokemonBuffer.push(item);
         this.clickedPokemon.push(item);
+        if (this.pokePush == false) {
+          this.pokePush = true;
+        }
       }
     },
     pokeFind(pick) {
