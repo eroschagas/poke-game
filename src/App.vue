@@ -3,7 +3,7 @@
     <PokeApiError :pokeApi="pokeApi" />
     <!-- <div class="console" @click="teste">console.log</div> -->
     <div v-if="pokeApi">
-      <div class="section-1">
+      <div ref="sectionGuess" class="section-guess">
         <PokeChosen
           :loadingList="loadingList"
           :pokeList="pokeList"
@@ -24,7 +24,7 @@
         />
       </div>
       <PokeList
-        class="pokelist"
+        :sectionGuessHeight="sectionGuessHeight"
         :loadingList="loadingList"
         :pokeList="pokeList"
         :pickPokemon="pickPokemon"
@@ -67,6 +67,7 @@ export default {
       allowLoadingFade: true,
       disableClick: 0,
       pokeApi: true,
+      sectionGuessHeight: 0,
     };
   },
   async created() {
@@ -88,6 +89,9 @@ export default {
         }
       },
     },
+  },
+  updated() {
+    this.sectionGuessHeight = this.$refs.sectionGuess.offsetHeight;
   },
   computed: {
     maxPokemon() {
@@ -128,6 +132,7 @@ export default {
           this.pokeList[this.randomPokemon].pokemon_v2_pokemonsprites[0].sprites
         )
       );
+      console.log(this.sectionGuessHeight);
     },
 
     async getPokemon() {
@@ -253,9 +258,11 @@ export default {
 //   margin: 0 10px
 //   flex-grow: 1
 
-.section-1
+.section-guess
   display: flex
   justify-content: center
+  height: fit-content
+  width: 100%
   // flex-direction: column
   // width: 45%
 </style>
