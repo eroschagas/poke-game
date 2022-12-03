@@ -1,9 +1,12 @@
 <template>
   <div class="home">
     <PokeApiError :pokeApi="pokeApi" />
-    <!-- <div class="console" @click="teste">console.log</div> -->
+    <transition name="loading">
+      <div v-if="loadingList" class="loading"><LoadingIcon size="50" /></div>
+    </transition>
     <div v-if="pokeApi">
       <div ref="sectionGuess" class="section-guess">
+        <!-- <div class="console" @click="teste">console.log</div> -->
         <PokeChosen
           :loadingList="loadingList"
           :pokeList="pokeList"
@@ -45,6 +48,7 @@ import PokeList from './templates/PokeList.vue';
 import PokeChosen from './templates/PokeChosen.vue';
 import PokePick from './templates/PokePick.vue';
 import PokeApiError from './components/PokeApiError.vue';
+import LoadingIcon from './components/LoadingIcon.vue';
 
 export default {
   name: 'App',
@@ -53,11 +57,11 @@ export default {
     PokeChosen,
     PokePick,
     PokeApiError,
+    LoadingIcon,
   },
   data() {
     return {
       pokeList: [],
-      clickedPokemon: [],
       clickedPokemonDelayed: [],
       clickedPokemonBuffer: [],
       clickedPokemonLimit: [],
@@ -94,6 +98,10 @@ export default {
     this.sectionGuessHeight = this.$refs.sectionGuess.offsetHeight;
   },
   computed: {
+    clickedPokemon() {
+      return this.pokeList.filter((p) => p.selected);
+    },
+
     maxPokemon() {
       return this.pokeList.filter(
         (p) => JSON.parse(p.pokemon_v2_pokemonsprites[0].sprites).front_default
@@ -102,8 +110,8 @@ export default {
       );
     },
     randomPokemon() {
-      // return Math.floor(Math.random() * this.maxPokemon.length);
-      return 5;
+      return Math.floor(Math.random() * this.maxPokemon.length);
+      // return 5;
     },
     chosenPoke() {
       if (this.pokeList) {
@@ -122,7 +130,7 @@ export default {
           return;
         }
         this.buffer();
-      }, 700);
+      }, 750);
     },
     teste() {
       console.log(this.clickedPokemon);
@@ -219,8 +227,8 @@ export default {
       // this.disableClick = Date.now();
 
       if (!this.pokeMissed(item) && !this.pokeFound) {
+        item.selected = true;
         this.clickedPokemonBuffer.push(item);
-        this.clickedPokemon.push(item);
         if (this.pokePush == false) {
           this.pokePush = true;
         }
@@ -245,18 +253,10 @@ export default {
 <style lang="sass">
 .home
   display: flex
-  // background-color: #FFFFFF
-  // background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='498' height='59.8' viewBox='0 0 1000 120'%3E%3Cg fill='none' stroke='%23FF0000' stroke-width='1.3' stroke-opacity='0.37'%3E%3Cpath d='M-500 75c0 0 125-30 250-30S0 75 0 75s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 45c0 0 125-30 250-30S0 45 0 45s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 105c0 0 125-30 250-30S0 105 0 105s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 15c0 0 125-30 250-30S0 15 0 15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500-15c0 0 125-30 250-30S0-15 0-15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 135c0 0 125-30 250-30S0 135 0 135s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3C/g%3E%3C/svg%3E")
 
 .console
   position: fixed
   cursor: pointer
-
-// .pokelist
-//   height: 100vh
-  // width: 100%
-//   margin: 0 10px
-//   flex-grow: 1
 
 .section-guess
   display: flex
@@ -265,4 +265,19 @@ export default {
   width: 100%
   // flex-direction: column
   // width: 45%
+.loading
+  position: fixed
+  z-index: 10000000
+  width: 100vw
+  height: 100vh
+  background: white
+  display: flex
+  justify-content: center
+  align-items: center
+
+.loading-leave-active
+  transition: opacity 0.8s 1s ease
+
+.loading-leave-to
+  opacity: 0
 </style>

@@ -1,6 +1,9 @@
 <template>
-  <div class="poke-list" :style="calculatedHeight">
+  <div v-if="!loadingList" class="poke-list" :style="calculatedHeight">
+    <div v-if="pokeFound" class="win-overlay"></div>
+
     <div class="poke-search">
+      <h3>Search:</h3>
       <input
         @keyup.enter="pokePick(pokeListFilter[0])"
         ref="inputSearch"
@@ -23,14 +26,13 @@
       </div>
     </div>
   </div>
-  <div class="all-pokemon pokelist-loading" v-if="loadingList">
+  <!-- <div class="all-pokemon pokelist-loading" v-if="loadingList">
     <LoadingIcon speed="2" size="30" />
-  </div>
+  </div> -->
 </template>
 
 <script>
 import PokeballPick from '@/components/PokeballPick.vue';
-import LoadingIcon from '../components/LoadingIcon.vue';
 export default {
   name: 'PokeList',
   props: [
@@ -45,7 +47,7 @@ export default {
     'allowLoadingFade',
     'sectionGuessHeight',
   ],
-  components: { LoadingIcon, PokeballPick },
+  components: { PokeballPick },
   data() {
     return {
       filter: '',
@@ -68,7 +70,7 @@ export default {
       setTimeout(() => {
         this.filter = '';
         this.$refs.inputSearch.focus();
-      }, 500);
+      }, 300);
     },
   },
 };
@@ -91,13 +93,9 @@ export default {
   overflow-y: scroll
   display: flex
   flex-wrap: wrap
-  justify-content: flex-start
+  justify-content: center
   align-items: flex-start
 
-.poke-cards
-  opacity: 0
-  transition: all 1s ease-out
-  animation: fadeIn 0.5s 2s forwards ease-out
 
 .win-overlay
   width: 100%
@@ -105,7 +103,6 @@ export default {
   position: fixed
   z-index: 100
   background: $transparent
-
 
 
 .pokelist-loading
@@ -124,9 +121,13 @@ export default {
   width: 50px
 
 .poke-search
-  width: 100%
+  display: flex
   height: 30px
+  margin-left: 60px
   // margin: 10px 70px
+  h3
+    margin: 0 20px
+    line-height: 30px
   input
     height: 30px
     width: 300px

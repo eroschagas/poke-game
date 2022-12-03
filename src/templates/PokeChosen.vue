@@ -38,20 +38,19 @@
       />
     </div>
   </div>
-  <div class="chosen-box pokechosen-loading" v-else>
+  <!-- <div class="chosen-box pokechosen-loading" v-else>
     <LoadingIcon speed="2" size="50" />
-  </div>
+  </div> -->
 </template>
 
 <script>
 import TypeImage from '@/components/TypeImage.vue';
-import LoadingIcon from '@/components/LoadingIcon.vue';
 import ChosenSprite from '@/components/ChosenSprite.vue';
 import PokeStat from '@/components/PokeStat.vue';
 
 export default {
   name: 'PokeChosen',
-  components: { LoadingIcon, TypeImage, ChosenSprite, PokeStat },
+  components: { TypeImage, ChosenSprite, PokeStat },
   props: [
     'pokeList',
     'clickedPokemon',

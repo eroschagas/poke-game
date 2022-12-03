@@ -80,8 +80,10 @@
         </div>
       </div>
     </div>
+
     <!-- <div class="smooth"></div> -->
   </div>
+  <h2>Tries: {{ clickedPokemon.length }}</h2>
 </template>
 
 <script>
@@ -146,10 +148,12 @@ export default {
 @import '../variables.sass'
 
 .pick-section
+  transition: all 0.5s ease
   max-height: 295px
   min-height: 160px
   width: 355px
-  overflow-y: scroll
+  height: 100%
+  overflow-y: hidden
   overflow-x: hidden
   scroll-behavior: smooth
   padding-top: 40px
@@ -160,10 +164,14 @@ export default {
   // justify-content: center
   // align-items: flex-end
   position: relative
+  &:hover
+    overflow-y: scroll
 
 .sect
   position: relative
   // height: 256px
+  height: 100%
+  max-height: 100%
   width: 355px
   // margin: 20px
   &::before
@@ -183,7 +191,7 @@ export default {
     // background: blue
     position: absolute
     z-index: 10001
-    bottom: 0
+    bottom: 0px
 
 
 .smooth
