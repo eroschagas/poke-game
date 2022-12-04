@@ -4,40 +4,43 @@
     <transition name="loading">
       <div v-if="loadingList" class="loading"><LoadingIcon size="50" /></div>
     </transition>
-    <div v-if="pokeApi">
-      <div ref="sectionGuess" class="section-guess">
-        <!-- <div class="console" @click="teste">console.log</div> -->
-        <PokeChosen
-          :loadingList="loadingList"
-          :pokeList="pokeList"
-          :randomPokemon="randomPokemon"
-          :clickedPokemon="clickedPokemon"
-          :pokeSprite="pokeSprite"
-          :upperCase="upperCase"
-          :typeSprite="typeSprite"
-          :chosenPoke="chosenPoke"
-          :pokeFound="pokeFound"
-        />
-        <PokePick
-          :typeSprite="typeSprite"
-          :clickedPokemon="clickedPokemonDelayed"
-          :pokeSprite="pokeSprite"
-          :chosenPoke="chosenPoke"
-          :clickedPokemonLimit="clickedPokemonLimit"
-        />
-      </div>
-      <PokeList
-        :sectionGuessHeight="sectionGuessHeight"
-        :loadingList="loadingList"
-        :pokeList="pokeList"
-        :pickPokemon="pickPokemon"
+    <div class="main-wrapper" v-if="pokeApi">
+      <PokePick
+        :typeSprite="typeSprite"
+        :clickedPokemon="clickedPokemonDelayed"
         :pokeSprite="pokeSprite"
         :chosenPoke="chosenPoke"
-        :pokeFind="pokeFind"
-        :pokeFound="pokeFound"
-        :pokeMissed="pokeMissed"
-        :allowLoadingFade="allowLoadingFade"
+        :clickedPokemonLimit="clickedPokemonLimit"
       />
+
+      <div class="section-guess">
+        <!-- <div class="console" @click="teste">console.log</div> -->
+        <div ref="sectionGuess">
+          <PokeChosen
+            :loadingList="loadingList"
+            :pokeList="pokeList"
+            :randomPokemon="randomPokemon"
+            :clickedPokemon="clickedPokemon"
+            :pokeSprite="pokeSprite"
+            :upperCase="upperCase"
+            :typeSprite="typeSprite"
+            :chosenPoke="chosenPoke"
+            :pokeFound="pokeFound"
+          />
+        </div>
+        <PokeList
+          :sectionGuessHeight="sectionGuessHeight"
+          :loadingList="loadingList"
+          :pokeList="pokeList"
+          :pickPokemon="pickPokemon"
+          :pokeSprite="pokeSprite"
+          :chosenPoke="chosenPoke"
+          :pokeFind="pokeFind"
+          :pokeFound="pokeFound"
+          :pokeMissed="pokeMissed"
+          :allowLoadingFade="allowLoadingFade"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -250,7 +253,7 @@ export default {
 };
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 .home
   display: flex
 
@@ -260,11 +263,12 @@ export default {
 
 .section-guess
   display: flex
+  flex-direction: column
   justify-content: center
+  align-items: center
   height: fit-content
   width: 100%
-  // flex-direction: column
-  // width: 45%
+
 .loading
   position: fixed
   z-index: 10000000
@@ -280,4 +284,9 @@ export default {
 
 .loading-leave-to
   opacity: 0
+
+.main-wrapper
+  display: flex
+  width: 100%
+  // height: 100%
 </style>

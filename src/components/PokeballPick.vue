@@ -58,7 +58,7 @@ export default {
 .poke-cards
   opacity: 0
   transition: all 1s ease-out
-  animation: fadeIn 0.5s 2s forwards ease-out
+  // animation: fadeIn 0.5s 2s forwards ease-out
 
 .poke-card
   width: 90px
@@ -85,6 +85,7 @@ export default {
       width: 70px
       height: 70px
       z-index: 100
+
 .poke-card-hover:hover
   // background: $pokelistBackgroundHover
   scale: (1.2)
@@ -94,7 +95,6 @@ export default {
     animation-duration: 0.4s, 0.5s
     animation-timing-function: ease-in-out, ease-in-out
     animation-iteration-count: 1, 1
-
 
 .poke-card-found
   position: relative
@@ -115,8 +115,10 @@ export default {
 
 .pokeball-top
     background-image: url('../assets/Poke_Ball_icon_top.svg')
+
 .pokeball-bot
     background-image: url('../assets/Poke_Ball_icon_bot.svg')
+
 .poke-card-disabled-animated
   cursor: not-allowed
   img
@@ -128,6 +130,7 @@ export default {
   .pokeball-bot
     transition: all 0.3s ease-in-out
     translate: 0 5px
+
 .poke-card-disabled
   cursor: not-allowed
   img

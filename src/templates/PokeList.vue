@@ -56,6 +56,7 @@ export default {
   computed: {
     calculatedHeight() {
       return `height: calc(100vh - ${this.sectionGuessHeight}px)`;
+      // return 'height: 500px';
     },
     pokeListFilter() {
       if (this.filter.length > 0) {
@@ -76,7 +77,7 @@ export default {
 };
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 @import '../variables.sass'
 
 .poke-list
@@ -84,18 +85,15 @@ export default {
   width: 100%
   display: flex
   flex-direction: column
-  // margin: 0 10px
-  // flex-grow: 3
+
 .all-pokemon
-  // margin: 0 10px
   max-height: 100%
   padding: 25px
   overflow-y: scroll
   display: flex
   flex-wrap: wrap
-  justify-content: center
+  justify-content: flex-start
   align-items: flex-start
-
 
 .win-overlay
   width: 100%
@@ -103,7 +101,6 @@ export default {
   position: fixed
   z-index: 100
   background: $transparent
-
 
 .pokelist-loading
   position: absolute
@@ -124,7 +121,6 @@ export default {
   display: flex
   height: 30px
   margin-left: 60px
-  // margin: 10px 70px
   h3
     margin: 0 20px
     line-height: 30px
@@ -132,10 +128,10 @@ export default {
     height: 30px
     width: 300px
     outline: none
-.list-wrapper
-  // height: calc( 100vh - 70px )
 
+.list-wrapper
   max-height: calc( 100% - 30px )
+  width: 100%
   position: relative
   &::before
     content: ''

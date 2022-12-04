@@ -7,7 +7,6 @@
           :id="item.id"
           :ref="'card-' + item.id"
           class="pick-card slideLeft"
-          :style="`z-index: ${parseInt(10000 - index)}`"
         >
           <div class="pick-stats-wrap">
             <div class="pick-name-type">
@@ -48,42 +47,11 @@
               />
             </div>
           </div>
-          <!-- <div class="pick-value">
-            <p>{{ item.weight / 10 }}KG</p>
-            <div>
-              <ion-icon
-                v-if="item.weight < chosenPoke.weight"
-                name="arrow-up-circle-outline"
-              ></ion-icon>
-              <ion-icon
-                v-else-if="item.weight > chosenPoke.weight"
-                name="arrow-down-circle-outline"
-              ></ion-icon>
-              <ion-icon v-else name="checkmark-circle-outline"></ion-icon>
-            </div>
-          </div>
-
-          <div class="pick-value">
-            <p>{{ item.height / 10 }}M</p>
-            <div>
-              <ion-icon
-                v-if="item.height < chosenPoke.height"
-                name="arrow-up-circle-outline"
-              ></ion-icon>
-              <ion-icon
-                v-else-if="item.height > chosenPoke.height"
-                name="arrow-down-circle-outline"
-              ></ion-icon>
-              <ion-icon v-else name="checkmark-circle-outline"></ion-icon>
-            </div>
-          </div> -->
         </div>
       </div>
     </div>
-
-    <!-- <div class="smooth"></div> -->
   </div>
-  <h2>Tries: {{ clickedPokemon.length }}</h2>
+  <!-- <h2>Tries: {{ clickedPokemon.length }}</h2> -->
 </template>
 
 <script>
@@ -115,24 +83,14 @@ export default {
       deep: true,
       handler() {
         this.$nextTick(() => {
-          // var lastCardHeight =
-          //   this.$refs[
-          //     'card-' + this.clickedPokemon[this.clickedPokemon.length - 1].id
-          //   ][0].offsetHeight;
-          // this.$refs.pickSection.scrollTo(
-          //   0,
-          //   this.clickedPokemon.length * lastCardHeight
-          // );
-          // setTimeout(() => {
           this.$refs.pickSection.scrollTo(0, -1000000);
-          // }, 100);
         });
       },
     },
   },
   methods: {
     eraseList(index) {
-      if (index > this.clickedPokemon.length - 10) {
+      if (index >= this.clickedPokemon.length - 12) {
         return true;
       }
       setTimeout(() => {
@@ -149,29 +107,32 @@ export default {
 
 .pick-section
   transition: all 0.5s ease
-  max-height: 295px
-  min-height: 160px
+  // max-height: 295px
+  // min-height: 160px
   width: 355px
   height: 100%
   overflow-y: hidden
   overflow-x: hidden
   scroll-behavior: smooth
-  padding-top: 40px
+  padding-top: 60px
+  padding-left: 20px
   display: flex
   // background: red
   flex-direction: column-reverse
   transition: all is ease-in
-  // justify-content: center
+  justify-content: flex-end
   // align-items: flex-end
   position: relative
   &:hover
     overflow-y: scroll
 
 .sect
+  padding: 20px
+  margin: 0 20px
   position: relative
+  max-height: 100vh
   // height: 256px
   height: 100%
-  max-height: 100%
   width: 355px
   // margin: 20px
   &::before
@@ -182,7 +143,7 @@ export default {
     // background: blue
     position: absolute
     z-index: 10001
-    top: 0
+    top: 20px
   &::after
     content: ''
     width: 100%
@@ -191,7 +152,7 @@ export default {
     // background: blue
     position: absolute
     z-index: 10001
-    bottom: 0px
+    bottom: 20px
 
 
 .smooth
@@ -209,6 +170,7 @@ export default {
   justify-content: flex-start
   align-items: center
   position: relative
+  height: 65px
 
 .pick-sprite
   opacity: 0
@@ -216,7 +178,7 @@ export default {
   margin: 10px
   img
     position: absolute
-    left: -20px
+    left: -40px
     top: -30px
     height: 100px
     width: 100px
@@ -266,6 +228,9 @@ export default {
   height: fit-content
 
 .pick-stats-wrap
+  border: 3px solid black
+
+  // scale: 0.9
   background-color: #959595
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 800 400'%3E%3Cdefs%3E%3CradialGradient id='a' cx='396' cy='281' r='514' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23C70000'/%3E%3Cstop offset='1' stop-color='%23959595'/%3E%3C/radialGradient%3E%3ClinearGradient id='b' gradientUnits='userSpaceOnUse' x1='400' y1='148' x2='400' y2='333'%3E%3Cstop offset='0' stop-color='%232D2D2D' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%232D2D2D' stop-opacity='0.5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill='url(%23a)' width='800' height='400'/%3E%3Cg fill-opacity='0.4'%3E%3Ccircle fill='url(%23b)' cx='267.5' cy='61' r='300'/%3E%3Ccircle fill='url(%23b)' cx='532.5' cy='61' r='300'/%3E%3Ccircle fill='url(%23b)' cx='400' cy='30' r='300'/%3E%3C/g%3E%3C/svg%3E")
   // background-color: #BFBFBF
