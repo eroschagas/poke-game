@@ -253,40 +253,41 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
-.home
-  display: flex
-
-.console
-  position: fixed
-  cursor: pointer
-
-.section-guess
-  display: flex
-  flex-direction: column
-  justify-content: center
-  align-items: center
-  height: fit-content
-  width: 100%
-
-.loading
-  position: fixed
-  z-index: 10000000
-  width: 100vw
-  height: 100vh
-  background: white
-  display: flex
-  justify-content: center
-  align-items: center
-
-.loading-leave-active
-  transition: opacity 0.8s 1s ease
-
-.loading-leave-to
-  opacity: 0
-
-.main-wrapper
-  display: flex
-  width: 100%
+<style lang="scss" scoped>
+.home {
+  display: flex;
+}
+.console {
+  position: fixed;
+  cursor: pointer;
+}
+.section-guess {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+  width: 100%;
+}
+.loading {
+  position: fixed;
+  z-index: 10000000;
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loading-leave-active {
+  transition: opacity 0.8s 1s ease;
+}
+.loading-leave-to {
+  opacity: 0;
+}
+.main-wrapper {
+  display: flex;
+  width: 100%;
   // height: 100%
+}
 </style>

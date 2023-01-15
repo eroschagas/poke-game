@@ -31,51 +31,52 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '../variables.sass'
+<style lang="scss">
+@import '../variables.scss';
 
-.chosen-stats-field-2
-  background: $chosenBackgroundFields
-  display: flex
-  flex-direction: column
-  justify-content: center
-  align-items: center
-  height: 50px
-  width: 50px
-  // box-shadow: 2px 2px 2px $shadow
-  margin: 10px 10px 5px 0
-  white-space: nowrap
-  border-radius: 50%
-  font-family: $pixel
-  font-weight: normal
-  position: relative
-  // text-shadow: 2px 2px 2px $shadow
-
-.chosen-stats-title
-  position: absolute
-  top: -5px
-  background: $chosenBackgroundFields
-  border-radius: 5px
-  padding: 0 3px
-  z-index: 10
-
-.chosen-stats-unit
-  position: absolute
-  bottom: 3px
-  font-size: 9px
-  text-rendering: geometricPrecision
-  z-index: 10
-
-.compare
-  position: absolute
-  left: -5px
-  bottom: -3px
-  background: $chosenBackgroundFields
-  height: 20px
-  width: 20px
-  display: flex
-  justify-content: center
-  align-items: center
-  font-size: 20px
-  border-radius: 50%
+.chosen-stats-field-2 {
+  background: $chosenBackgroundFields;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 50px;
+  // box-shadow: 2px 2px 2px $shadow;
+  margin: 10px 10px 5px 0;
+  white-space: nowrap;
+  border-radius: 50%;
+  font-family: $pixel;
+  font-weight: normal;
+  position: relative;
+  // text-shadow: 2px 2px 2px $shadow;
+}
+.chosen-stats-title {
+  position: absolute;
+  top: -5px;
+  background: $chosenBackgroundFields;
+  border-radius: 5px;
+  padding: 0 3px;
+  z-index: 10;
+}
+.chosen-stats-unit {
+  position: absolute;
+  bottom: 3px;
+  font-size: 9px;
+  text-rendering: geometricPrecision;
+  z-index: 10;
+}
+.compare {
+  position: absolute;
+  left: -5px;
+  bottom: -3px;
+  background: $chosenBackgroundFields;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  border-radius: 50%;
+}
 </style>

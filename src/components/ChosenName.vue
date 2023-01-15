@@ -47,13 +47,14 @@ export default {
 };
 </script>
 
-<style lang="sass">
-.chosen-name
-  display: flex
-  justify-content: center
-  align-items: center
-  text-align: center
-  // height: 82px
-  width: 300px
-  font-size: 10px
+<style lang="scss">
+.chosen-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  // height: 82px;
+  width: 300px;
+  font-size: 10px;
+}
 </style>

@@ -99,68 +99,69 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '../variables.sass'
+<style lang="scss">
+@import '../variables.scss';
 
-.chosen-box
-  height: fit-content
-  margin: 20px
-  width: 315px
-  border-radius: 25px
-  background: $transparent
-  display: flex
-  flex-direction: column
-  justify-content: center
-  align-items: center
-
-.chosen-stats
-  display: flex
-
-.chosen-stats-field
-  background: $chosenBackgroundFields
-  display: flex
-  justify-content: center
-  align-items: center
-  height: 50px
-  box-shadow: 2px 2px 2px $shadow
-  margin: 10px 5px
-  padding: 0 10px
-  white-space: nowrap
-  border-radius: 10px
-  font-family: $pixel
-  font-weight: normal
-  text-shadow: 2px 2px 2px $shadow
-
-.chosen-gen
-  width: 75px
-  display: flex
-  flex-direction: column
-  align-items: center
-  justify-content: center
-
-.chosen-weight
-  width: 85px
-  display: flex
-  flex-direction: column
-  align-items: center
-  justify-content: center
-
-.chosen-height
-  width: 85px
-  display: flex
-  flex-direction: column
-  align-items: center
-  justify-content: center
-
-.chosen-number
-  height: 20px
-
-.pokechosen-loading
-  display: flex
-  justify-content: center
-  align-items: center
-
-.chosen-loading
-  height: 50px
-  width: 50px
+.chosen-box {
+  height: fit-content;
+  margin: 20px;
+  width: 315px;
+  border-radius: 25px;
+  background: $transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.chosen-stats {
+  display: flex;
+}
+.chosen-stats-field {
+  background: $chosenBackgroundFields;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  box-shadow: 2px 2px 2px $shadow;
+  margin: 10px 5px;
+  padding: 0 10px;
+  white-space: nowrap;
+  border-radius: 10px;
+  font-family: $pixel;
+  font-weight: normal;
+  text-shadow: 2px 2px 2px $shadow;
+}
+.chosen-gen {
+  width: 75px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.chosen-weight {
+  width: 85px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.chosen-height {
+  width: 85px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.chosen-number {
+  height: 20px;
+}
+.pokechosen-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.chosen-loading {
+  height: 50px;
+  width: 50px;
+}
 </style>

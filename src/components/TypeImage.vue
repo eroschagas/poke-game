@@ -113,41 +113,50 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '../variables.sass'
+<style lang="scss">
+@import '../variables.scss';
 
-.poke-type
-  display: flex
-  margin: 10px 5px 5px 10px
-  align-items: center
-  justify-content: center
-  height: 50px
-  width: 120px
-  img
-    height: 50px
-    width: 50px
+.poke-type {
+  display: flex;
+  margin: 10px 5px 5px 10px;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 120px;
 
-  .poke-type-show-chosen
-    height: 50px
-    width: 50px
-    margin: 0 5px
-    position: absolute
-    img
-      scale: 1.05
-  .poke-type-show
-    height: 50px
-    width: 50px
-    margin: 0 5px
-  .poke-type-hidden
-    height: 50px
-    width: 50px
-    margin: 0 5px
-    background: $chosenBackgroundFields
-    border-radius: 50%
-    position: relative
-    z-index: -1
-  .poke-type-hidden-single
-    animation: fadeOut 1s forwards ease-out
-  .poke-type-show-single
-    animation: centerTypeSprite 0.5s 1s forwards ease-in-out
+  img {
+    height: 50px;
+    width: 50px;
+  }
+}
+.poke-type-show-chosen {
+  height: 50px;
+  width: 50px;
+  margin: 0 5px;
+  position: absolute;
+
+  img {
+    scale: 1.05;
+  }
+}
+.poke-type-show {
+  height: 50px;
+  width: 50px;
+  margin: 0 5px;
+}
+.poke-type-hidden {
+  height: 50px;
+  width: 50px;
+  margin: 0 5px;
+  background: $chosenBackgroundFields;
+  border-radius: 50%;
+  position: relative;
+  z-index: -1;
+}
+.poke-type-hidden-single {
+  animation: fadeOut 1s forwards ease-out;
+}
+.poke-type-show-single {
+  animation: centerTypeSprite 0.5s 1s forwards ease-in-out;
+}
 </style>
