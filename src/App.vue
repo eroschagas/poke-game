@@ -1,33 +1,42 @@
 <template>
   <div class="home">
+    <div class="console" @click="teste">console.log</div>
+
     <PokeApiError :pokeApi="pokeApi" />
+    <div class="container">
+      <PokedexContainer
+        :clickedPokemon="clickedPokemonDelayed"
+        :pokeSprite="pokeSprite"
+        :chosenPoke="chosenPoke"
+        :clickedPokemonLimit="clickedPokemonLimit"
+        :typeSprite="typeSprite"
+      />
+      <PokeChosen
+        :loadingList="loadingList"
+        :pokeList="pokeList"
+        :randomPokemon="randomPokemon"
+        :clickedPokemon="clickedPokemon"
+        :pokeSprite="pokeSprite"
+        :upperCase="upperCase"
+        :typeSprite="typeSprite"
+        :chosenPoke="chosenPoke"
+        :pokeFound="pokeFound"
+      />
+    </div>
     <transition name="loading">
       <div v-if="loadingList" class="loading"><LoadingIcon size="50" /></div>
     </transition>
     <div class="main-wrapper" v-if="pokeApi">
-      <PokePick
+      <!-- <PokePick
         :typeSprite="typeSprite"
         :clickedPokemon="clickedPokemonDelayed"
         :pokeSprite="pokeSprite"
         :chosenPoke="chosenPoke"
         :clickedPokemonLimit="clickedPokemonLimit"
-      />
+      /> -->
 
       <div class="section-guess">
-        <!-- <div class="console" @click="teste">console.log</div> -->
-        <div ref="sectionGuess">
-          <PokeChosen
-            :loadingList="loadingList"
-            :pokeList="pokeList"
-            :randomPokemon="randomPokemon"
-            :clickedPokemon="clickedPokemon"
-            :pokeSprite="pokeSprite"
-            :upperCase="upperCase"
-            :typeSprite="typeSprite"
-            :chosenPoke="chosenPoke"
-            :pokeFound="pokeFound"
-          />
-        </div>
+        <div ref="sectionGuess"></div>
         <PokeList
           :sectionGuessHeight="sectionGuessHeight"
           :loadingList="loadingList"
@@ -49,18 +58,20 @@
 import axios from 'axios';
 import PokeList from './templates/PokeList.vue';
 import PokeChosen from './templates/PokeChosen.vue';
-import PokePick from './templates/PokePick.vue';
+// import PokePick from './templates/PokePick.vue';
 import PokeApiError from './components/PokeApiError.vue';
 import LoadingIcon from './components/LoadingIcon.vue';
+import PokedexContainer from './components/PokedexContainer.vue';
 
 export default {
   name: 'App',
   components: {
     PokeList,
     PokeChosen,
-    PokePick,
+    // PokePick,
     PokeApiError,
     LoadingIcon,
+    PokedexContainer,
   },
   data() {
     return {
@@ -137,6 +148,7 @@ export default {
     },
     teste() {
       console.log(this.clickedPokemon);
+      console.log('chosenpoke', this.chosenPoke);
       console.log(this.pokeList);
       console.log(
         JSON.parse(
@@ -254,9 +266,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.home {
-  display: flex;
-}
+// .home {
+//   display: flex;
+// }
 .console {
   position: fixed;
   cursor: pointer;
@@ -289,5 +301,11 @@ export default {
   display: flex;
   width: 100%;
   // height: 100%
+}
+.container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 }
 </style>

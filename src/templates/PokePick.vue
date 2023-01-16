@@ -13,7 +13,14 @@
               <div class="pick-value pick-name">{{ item.name }}</div>
               <div class="pick-sprite">
                 <img
-                  :src="pokeSprite(item.id - 1, 'other', 'official-artwork')"
+                  :src="
+                    pokeSprite(
+                      item.id - 1,
+                      'versions',
+                      'generation-viii',
+                      'icons'
+                    )
+                  "
                   :alt="item.name"
                 />
               </div>
@@ -140,7 +147,7 @@ export default {
     content: '';
     width: 100%;
     height: 40px;
-    background: $fadeColorBottom;
+    // background: $fadeColorBottom;
     // background: blue;
     position: absolute;
     z-index: 10001;
@@ -150,7 +157,7 @@ export default {
     content: '';
     width: 100%;
     height: 40px;
-    background: $fadeColorTop;
+    // background: $fadeColorTop;
     // background: blue;
     position: absolute;
     z-index: 10001;
