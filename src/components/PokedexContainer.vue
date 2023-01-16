@@ -16,14 +16,16 @@
       </div>
     </div>
     <div class="pokedex-stats">
+      <transition name="pokedexType">
       <div v-if="!!clickedPokemon.length" class="pick-stats-container">
         <div :key="key" class="pick-stats">
-          <TypeSprite
-            :pokemon="clickedPokemon[clickedPokemon.length - 1]"
-            :typeSprite="typeSprite"
-          />
+            <TypeSprite
+              :pokemon="clickedPokemon[clickedPokemon.length - 1]"
+              :typeSprite="typeSprite"
+            />
+          </div>
         </div>
-      </div>
+      </transition>
     </div>
     <div class="stat"><p>GEN</p></div>
     <div class="stat weight"><p>WEIGHT</p></div>
@@ -107,7 +109,8 @@ export default {
 .pokedex-screen-name {
   height: 3.6%;
   width: 33.5%;
-  background: white;
+  background: repeating-linear-gradient(#028539, #26a872 2px, #028539 5px);
+  color: white;
   position: absolute;
   left: 8.6%;
   top: 32%;
@@ -121,7 +124,7 @@ export default {
 .pokedex-screen-image {
   height: 16%;
   width: 25.3%;
-  background: white;
+  background: repeating-linear-gradient(#028539, #26a872 2px, #028539 5px);
   position: absolute;
   left: 12.8%;
   top: 47.3%;
@@ -144,7 +147,7 @@ export default {
 .pokedex-stats {
   height: 8.5%;
   width: 34.9%;
-  background: white;
+  background: repeating-linear-gradient(#028539, #26a872 2px, #028539 5px);
   position: absolute;
   left: 58%;
   top: 46%;
@@ -171,7 +174,8 @@ export default {
 .stat {
   width: 10.4%;
   height: 5%;
-  background: white;
+  background: repeating-linear-gradient(#028539, #26a872 2px, #028539 5px);
+  color: white;
   position: absolute;
   top: 61%;
   left: 58.1%;
@@ -193,5 +197,13 @@ export default {
 .value {
   left: 76.8%;
   width: 15.8%;
+}
+.pokedexType-enter-active,
+.pokedexType-leave-active {
+  transition: all 1s ease;
+}
+.pokedexType-enter-from,
+.pokedexType-leave-to {
+  opacity: 0;
 }
 </style>
