@@ -5,11 +5,7 @@
       <transition name="pokedexOnOff">
         <div v-if="!!clickedPokemon.length && index == this.page">
           <PokedexScreenName :name="item.name" />
-          <PokedexScreenImage
-            @click="nextPage"
-            :src="pokeSprite(item.id)"
-            :alt="item.name"
-          />
+          <PokedexScreenImage :src="pokeSprite(item.id)" :alt="item.name" />
           <PokedexStats type="type" :pokemon="item" :typeSprite="typeSprite" />
           <PokedexStats
             type="stat"
@@ -26,6 +22,10 @@
             name="height"
             :stat="!!clickedPokemon.length ? `${item.height}m` : ''"
           />
+          <div @click="nextPage" class="controller right"></div>
+          <div @click="prevPage" class="controller left"></div>
+          <div class="controller top"></div>
+          <div class="controller bottom"></div>
         </div>
       </transition>
     </div>
@@ -62,14 +62,28 @@ export default {
     clickedPokemon: {
       deep: true,
       handler() {
-        console.log(this.key);
-        this.key += 1;
+        this.$nextTick(() => {
+          this.page = this.clickedPokemon.length - 1;
+        });
       },
     },
   },
   methods: {
     nextPage() {
-      this.page += 1;
+      if (this.page == this.clickedPokemon.length - 1) {
+        this.page = 0;
+      } else {
+        this.page += 1;
+      }
+      console.log('page', this.page);
+    },
+    prevPage() {
+      if (this.page == 0) {
+        this.page = this.clickedPokemon.length - 1;
+      } else {
+        this.page -= 1;
+      }
+      console.log('page', this.page);
     },
   },
 };
@@ -96,5 +110,28 @@ export default {
 .pokedexOnOff-enter-from,
 .pokedexOnOff-leave-to {
   opacity: 0;
+}
+.controller {
+  position: absolute;
+  // background: red;
+  width: 5.4%;
+  height: 6.4%;
+  cursor: pointer;
+}
+.right {
+  top: 79%;
+  left: 39.5%;
+}
+.top {
+  top: 74%;
+  left: 35.4%;
+}
+.left {
+  top: 79%;
+  left: 31.5%;
+}
+.bottom {
+  top: 84%;
+  left: 35.4%;
 }
 </style>
