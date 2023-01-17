@@ -22,10 +22,10 @@
             name="height"
             :stat="!!clickedPokemon.length ? `${item.height}m` : ''"
           />
-          <div @click="nextPage" class="controller right"></div>
-          <div @click="prevPage" class="controller left"></div>
-          <div class="controller top"></div>
-          <div class="controller bottom"></div>
+          <div @click="nextPage" class="controller right"><p>▶</p></div>
+          <div @click="prevPage" class="controller left"><p>◀</p></div>
+          <div class="controller top"><p>▲</p></div>
+          <div class="controller bottom"><p>▼</p></div>
         </div>
       </transition>
     </div>
@@ -112,26 +112,32 @@ export default {
   opacity: 0;
 }
 .controller {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   // background: red;
   width: 5.4%;
   height: 6.4%;
   cursor: pointer;
+  color: white;
+
 }
 .right {
-  top: 79%;
-  left: 39.5%;
+  top: 79.2%;
+  left: 39.9%;
 }
 .top {
-  top: 74%;
+  top: 73.7%;
   left: 35.4%;
+  // background-color: white;
 }
 .left {
-  top: 79%;
-  left: 31.5%;
+  top: 79.2%;
+  left: 30.8%;
 }
 .bottom {
-  top: 84%;
+  top: 84.5%;
   left: 35.4%;
 }
 </style>
