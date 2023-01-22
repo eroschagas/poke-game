@@ -80,7 +80,7 @@ export default {
     align-items: center;
 
     img {
-      image-rendering: pixelated;
+      // image-rendering: pixelated;
       // position: relative;
       border-radius: 50%;
       background-image: radial-gradient($pokeBackground 30%, transparent 70%);
