@@ -307,7 +307,7 @@ export default {
 .guess-wrapper {
   position: sticky;
   flex-grow: 2;
-  width: 600px;
+  width: 700px;
 }
 .find-wrapper {
   flex-grow: 1;

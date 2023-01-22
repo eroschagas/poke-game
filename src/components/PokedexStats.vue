@@ -93,7 +93,7 @@ export default {
   animation: screen 0.5s infinite linear, glow 0.5s infinite linear;
   color: white;
   position: absolute;
-  top: 60.9%;
+  top: 60.99%;
   left: 58.1%;
   display: flex;
   align-items: center;
@@ -109,18 +109,18 @@ export default {
   height: 5%;
   color: black;
   position: absolute;
-  top: 60.9%;
-  left: 67.5%;
+  top: 60.99%;
+  left: 67.53%;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
 }
 .weight {
-  top: 72.3%;
+  top: 72.37%;
 }
 .height {
-  top: 83.7%;
+  top: 83.76%;
 }
 .value {
   left: 76.8%;
