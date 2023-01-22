@@ -103,7 +103,7 @@ export default {
 
 .chosen-box {
   height: fit-content;
-  margin: 0px;
+  margin: 0 10px;
   width: 315px;
   border-radius: 25px;
   background: $transparent;

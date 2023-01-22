@@ -1,21 +1,13 @@
 <template>
   <div class="home">
+    <!-- <div v-if="!mobile" class="menu">menu</div> -->
     <div class="console" @click="teste">console.log</div>
-
     <PokeApiError :pokeApi="pokeApi" />
     <transition name="loading">
       <div v-if="Loading" class="loading"><LoadingIcon size="50" /></div>
     </transition>
-
-    <transition name="loading">
-      <div v-if="!Loading" :class="['container', { mobile: mobile }]">
-        <PokedexContainer
-          :clickedPokemon="clickedPokemonDelayed"
-          :pokeSprite="pokeSprite"
-          :chosenPoke="chosenPoke"
-          :clickedPokemonLimit="clickedPokemonLimit"
-          :typeSprite="typeSprite"
-        />
+    <transition class="guess-wrapper" name="loading">
+      <div v-if="!Loading" :class="['container']">
         <PokeChosen
           :pokeList="pokeList"
           :randomPokemon="randomPokemon"
@@ -26,13 +18,18 @@
           :chosenPoke="chosenPoke"
           :pokeFound="pokeFound"
         />
+        <PokedexContainer
+          :clickedPokemon="clickedPokemonDelayed"
+          :pokeSprite="pokeSprite"
+          :chosenPoke="chosenPoke"
+          :clickedPokemonLimit="clickedPokemonLimit"
+          :typeSprite="typeSprite"
+        />
       </div>
     </transition>
-    <transition name="loading" class="main-wrapper">
-      <div class="section-guess" v-if="pokeApi && !Loading">
-        <div ref="sectionGuess"></div>
+    <transition class="find-wrapper" name="loading">
+      <div v-if="!Loading" class="list">
         <PokeList
-          :sectionGuessHeight="sectionGuessHeight"
           :pokeList="pokeList"
           :pickPokemon="pickPokemon"
           :pokeSprite="pokeSprite"
@@ -51,17 +48,15 @@
 import axios from 'axios';
 import PokeList from './templates/PokeList.vue';
 import PokeChosen from './templates/PokeChosen.vue';
-// import PokePick from './templates/PokePick.vue';
 import PokeApiError from './components/PokeApiError.vue';
 import LoadingIcon from './components/LoadingIcon.vue';
-import PokedexContainer from './components/PokedexContainer.vue';
+import PokedexContainer from './templates/PokedexContainer.vue';
 
 export default {
   name: 'App',
   components: {
     PokeList,
     PokeChosen,
-    // PokePick,
     PokeApiError,
     LoadingIcon,
     PokedexContainer,
@@ -78,7 +73,6 @@ export default {
       allowLoadingFade: true,
       disableClick: 0,
       pokeApi: true,
-      sectionGuessHeight: 0,
     };
   },
   async created() {
@@ -101,9 +95,6 @@ export default {
       },
     },
   },
-  updated() {
-    this.sectionGuessHeight = this.$refs.sectionGuess.offsetHeight;
-  },
   computed: {
     mobile() {
       return window.screen.width < 800 ? true : false;
@@ -115,8 +106,6 @@ export default {
     maxPokemon() {
       return this.pokeList.filter(
         (p) => JSON.parse(p.pokemon_v2_pokemonsprites[0].sprites).front_default
-        // JSON.parse(p.pokemon_v2_pokemonsprites[0].sprites).other.dream_world
-        //   .front_default
       );
     },
     randomPokemon() {
@@ -151,7 +140,6 @@ export default {
           this.pokeList[this.randomPokemon].pokemon_v2_pokemonsprites[0].sprites
         )
       );
-      console.log(this.sectionGuessHeight);
     },
 
     async getPokemon() {
@@ -262,20 +250,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// .home {
-//   display: flex;
-// }
+.home {
+  position: relative;
+  display: flex;
+  // flex-direction: column;
+  height: 100vh;
+}
 .console {
   position: fixed;
   cursor: pointer;
-}
-.section-guess {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: fit-content;
-  width: 100%;
 }
 .loading {
   position: fixed;
@@ -295,18 +278,41 @@ export default {
 .loading-leave-to {
   opacity: 0;
 }
-.main-wrapper {
-  display: flex;
-  width: 100%;
-  // height: 100%
-}
 .container {
+  // margin-top: 60px;
   display: flex;
-  width: 100%;
+  flex-direction: column;
+  // width: 100%;
+  flex-grow: 2;
   align-items: center;
-  justify-content: center;
+  // justify-content: center;
+  // position: fixed;
+  position: sticky;
+  z-index: 1000;
+  background: white;
 }
 .mobile {
   flex-direction: column;
+}
+.menu {
+  background: red;
+  width: 100%;
+  height: 60px;
+  position: fixed;
+  z-index: 1000;
+}
+// .list {
+//   margin-top: 500px;
+// }
+.guess-wrapper {
+  position: sticky;
+  flex-grow: 2;
+  width: 600px;
+}
+.find-wrapper {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 }
 </style>

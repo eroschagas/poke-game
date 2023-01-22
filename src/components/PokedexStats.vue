@@ -9,8 +9,31 @@
   <div v-if="type == 'stat' && name" :class="['stat', name]">
     <p :style="fontResize">{{ name.toUpperCase() }}</p>
   </div>
+  <div v-if="type == 'stat' && name" :class="['analyzer', name]">
+    <ion-icon
+      v-if="chosen == stat"
+      :style="fontResizeIcon"
+      name="checkmark-circle-outline"
+    ></ion-icon>
+    <ion-icon
+      v-else-if="chosen > stat"
+      :style="fontResizeIcon"
+      name="arrow-up-circle-outline"
+    ></ion-icon>
+    <ion-icon
+      v-else-if="chosen < stat"
+      :style="fontResizeIcon"
+      name="arrow-down-circle-outline"
+    ></ion-icon>
+  </div>
   <div v-if="type == 'stat' && name && stat" :class="['stat', 'value', name]">
-    <p :style="fontResize">
+    <p v-if="name == 'weight'" :style="fontResize">
+      {{ `${stat}kg` }}
+    </p>
+    <p v-else-if="name == 'height'" :style="fontResize">
+      {{ `${stat}m` }}
+    </p>
+    <p v-else :style="fontResize">
       {{ stat }}
     </p>
   </div>
@@ -29,6 +52,8 @@ export default {
     pokemon: Object,
     typeSprite: Function,
     fontResize: Object,
+    fontResizeIcon: Object,
+    chosen: Number,
   },
 };
 </script>
@@ -68,7 +93,7 @@ export default {
   animation: screen 0.5s infinite linear, glow 0.5s infinite linear;
   color: white;
   position: absolute;
-  top: 61%;
+  top: 60.9%;
   left: 58.1%;
   display: flex;
   align-items: center;
@@ -79,11 +104,23 @@ export default {
     font-family: $pixel;
   }
 }
+.analyzer {
+  width: 10.4%;
+  height: 5%;
+  color: black;
+  position: absolute;
+  top: 60.9%;
+  left: 67.5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 .weight {
-  top: 72.5%;
+  top: 72.3%;
 }
 .height {
-  top: 84%;
+  top: 83.7%;
 }
 .value {
   left: 76.8%;

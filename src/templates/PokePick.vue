@@ -142,7 +142,6 @@ export default {
   // height: 256px;
   height: 100%;
   width: 355px;
-  // margin: 20px;
   &::before {
     content: '';
     width: 100%;
