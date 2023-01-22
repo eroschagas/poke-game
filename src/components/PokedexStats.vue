@@ -7,10 +7,10 @@
     </div>
   </div>
   <div v-if="type == 'stat' && name" :class="['stat', name]">
-    <p>{{ name.toUpperCase() }}</p>
+    <p :style="fontResize">{{ name.toUpperCase() }}</p>
   </div>
   <div v-if="type == 'stat' && name && stat" :class="['stat', 'value', name]">
-    <p>
+    <p :style="fontResize">
       {{ stat }}
     </p>
   </div>
@@ -28,6 +28,7 @@ export default {
     stat: [String, Number],
     pokemon: Object,
     typeSprite: Function,
+    fontResize: Object,
   },
 };
 </script>

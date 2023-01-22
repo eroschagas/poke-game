@@ -4,28 +4,46 @@
     <div v-for="(item, index) in clickedPokemon" :key="index">
       <transition name="pokedexOnOff">
         <div v-if="!!clickedPokemon.length && index == this.page">
-          <PokedexScreenName :name="item.name" />
-          <PokedexScreenImage :src="pokeSprite(item.id)" :alt="item.name" />
+          <PokedexScreenName :fontResize="fontResize" :name="item.name" />
+          <PokedexScreenImage
+            :fontResize="fontResize"
+            :src="pokeSprite(item.id)"
+            :alt="item.name"
+          />
           <PokedexStats type="type" :pokemon="item" :typeSprite="typeSprite" />
           <PokedexStats
+            :fontResize="fontResize"
             type="stat"
             name="gen"
             :stat="item.pokemon_v2_pokemonspecy.generation_id"
           />
           <PokedexStats
+            :fontResize="fontResize"
             type="stat"
             name="weight"
             :stat="!!clickedPokemon.length ? `${item.weight}kg` : ''"
           />
           <PokedexStats
+            :fontResize="fontResize"
             type="stat"
             name="height"
             :stat="!!clickedPokemon.length ? `${item.height}m` : ''"
           />
-          <div @click="nextPage" class="controller right"><p>▶</p></div>
-          <div @click="prevPage" class="controller left"><p>◀</p></div>
-          <div class="controller top"><p>▲</p></div>
-          <div class="controller bottom"><p>▼</p></div>
+          <div @click="nextPage" class="controller right">
+            <ion-icon
+              :style="fontResize"
+              name="caret-forward-outline"
+            ></ion-icon>
+          </div>
+          <div @click="prevPage" class="controller left">
+            <ion-icon :style="fontResize" name="caret-back-outline"></ion-icon>
+          </div>
+          <div class="controller top">
+            <ion-icon :style="fontResize" name="caret-up-outline"></ion-icon>
+          </div>
+          <div class="controller bottom">
+            <ion-icon :style="fontResize" name="caret-down-outline"></ion-icon>
+          </div>
         </div>
       </transition>
     </div>
@@ -68,6 +86,14 @@ export default {
       },
     },
   },
+  computed: {
+    fontResize() {
+      if (window.screen.width < 600) {
+        return { 'font-size': '2.1vw' };
+      }
+      return { 'font-size': '12px' };
+    },
+  },
   methods: {
     nextPage() {
       if (this.page == this.clickedPokemon.length - 1) {
@@ -93,7 +119,7 @@ export default {
 @import '../variables.scss';
 .pokedex-container {
   display: block;
-  width: 600px;
+  max-width: 100%;
   height: auto;
   margin: 10px;
   position: relative;
@@ -121,23 +147,25 @@ export default {
   height: 6.4%;
   cursor: pointer;
   color: white;
-
+  p {
+    font-size: 12px;
+  }
 }
 .right {
-  top: 79.2%;
-  left: 39.9%;
+  top: 78.9%;
+  left: 39.8%;
 }
 .top {
-  top: 73.7%;
+  top: 73.9%;
   left: 35.4%;
   // background-color: white;
 }
 .left {
-  top: 79.2%;
-  left: 30.8%;
+  top: 78.9%;
+  left: 31.1%;
 }
 .bottom {
-  top: 84.5%;
+  top: 84%;
   left: 35.4%;
 }
 </style>

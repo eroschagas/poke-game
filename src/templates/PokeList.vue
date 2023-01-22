@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!loadingList" class="poke-list" :style="calculatedHeight">
+  <div class="poke-list" :style="calculatedHeight">
     <div v-if="pokeFound" class="win-overlay"></div>
 
     <div class="poke-search">
@@ -26,27 +26,23 @@
       </div>
     </div>
   </div>
-  <!-- <div class="all-pokemon pokelist-loading" v-if="loadingList">
-    <LoadingIcon speed="2" size="30" />
-  </div> -->
 </template>
 
 <script>
 import PokeballPick from '@/components/PokeballPick.vue';
 export default {
   name: 'PokeList',
-  props: [
-    'pokeList',
-    'pickPokemon',
-    'pokeSprite',
-    'chosenPoke',
-    'pokeFind',
-    'pokeFound',
-    'pokeMissed',
-    'loadingList',
-    'allowLoadingFade',
-    'sectionGuessHeight',
-  ],
+  props: {
+    pokeList: Array,
+    pickPokemon: Function,
+    pokeSprite: Function,
+    chosenPoke: Object,
+    pokeFind: Function,
+    pokeFound: Boolean,
+    pokeMissed: Function,
+    allowLoadingFade: Boolean,
+    sectionGuessHeight: Number,
+  },
   components: { PokeballPick },
   data() {
     return {

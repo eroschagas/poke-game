@@ -1,5 +1,5 @@
 <template>
-  <div v-if="chosenPoke && !loadingList" class="chosen-box">
+  <div v-if="chosenPoke" class="chosen-box">
     <ChosenSprite
       class="chosen-sprite"
       :upperCase="upperCase"
@@ -51,17 +51,16 @@ import PokeStat from '@/components/PokeStat.vue';
 export default {
   name: 'PokeChosen',
   components: { TypeImage, ChosenSprite, PokeStat },
-  props: [
-    'pokeList',
-    'clickedPokemon',
-    'randomPokemon',
-    'pokeSprite',
-    'upperCase',
-    'typeSprite',
-    'chosenPoke',
-    'pokeFound',
-    'loadingList',
-  ],
+  props: {
+    pokeList: Array,
+    clickedPokemon: Array,
+    randomPokemon: Number,
+    pokeSprite: Function,
+    upperCase: Function,
+    typeSprite: Function,
+    chosenPoke: Object,
+    pokeFound: Boolean,
+  },
   data() {
     return {};
   },
@@ -104,7 +103,7 @@ export default {
 
 .chosen-box {
   height: fit-content;
-  margin: 20px;
+  margin: 0px;
   width: 315px;
   border-radius: 25px;
   background: $transparent;

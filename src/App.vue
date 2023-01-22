@@ -3,43 +3,36 @@
     <div class="console" @click="teste">console.log</div>
 
     <PokeApiError :pokeApi="pokeApi" />
-    <div class="container">
-      <PokedexContainer
-        :clickedPokemon="clickedPokemonDelayed"
-        :pokeSprite="pokeSprite"
-        :chosenPoke="chosenPoke"
-        :clickedPokemonLimit="clickedPokemonLimit"
-        :typeSprite="typeSprite"
-      />
-      <PokeChosen
-        :loadingList="loadingList"
-        :pokeList="pokeList"
-        :randomPokemon="randomPokemon"
-        :clickedPokemon="clickedPokemon"
-        :pokeSprite="pokeSprite"
-        :upperCase="upperCase"
-        :typeSprite="typeSprite"
-        :chosenPoke="chosenPoke"
-        :pokeFound="pokeFound"
-      />
-    </div>
     <transition name="loading">
-      <div v-if="loadingList" class="loading"><LoadingIcon size="50" /></div>
+      <div v-if="Loading" class="loading"><LoadingIcon size="50" /></div>
     </transition>
-    <div class="main-wrapper" v-if="pokeApi">
-      <!-- <PokePick
-        :typeSprite="typeSprite"
-        :clickedPokemon="clickedPokemonDelayed"
-        :pokeSprite="pokeSprite"
-        :chosenPoke="chosenPoke"
-        :clickedPokemonLimit="clickedPokemonLimit"
-      /> -->
 
-      <div class="section-guess">
+    <transition name="loading">
+      <div v-if="!Loading" :class="['container', { mobile: mobile }]">
+        <PokedexContainer
+          :clickedPokemon="clickedPokemonDelayed"
+          :pokeSprite="pokeSprite"
+          :chosenPoke="chosenPoke"
+          :clickedPokemonLimit="clickedPokemonLimit"
+          :typeSprite="typeSprite"
+        />
+        <PokeChosen
+          :pokeList="pokeList"
+          :randomPokemon="randomPokemon"
+          :clickedPokemon="clickedPokemon"
+          :pokeSprite="pokeSprite"
+          :upperCase="upperCase"
+          :typeSprite="typeSprite"
+          :chosenPoke="chosenPoke"
+          :pokeFound="pokeFound"
+        />
+      </div>
+    </transition>
+    <transition name="loading" class="main-wrapper">
+      <div class="section-guess" v-if="pokeApi && !Loading">
         <div ref="sectionGuess"></div>
         <PokeList
           :sectionGuessHeight="sectionGuessHeight"
-          :loadingList="loadingList"
           :pokeList="pokeList"
           :pickPokemon="pickPokemon"
           :pokeSprite="pokeSprite"
@@ -50,7 +43,7 @@
           :allowLoadingFade="allowLoadingFade"
         />
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -81,7 +74,7 @@ export default {
       clickedPokemonLimit: [],
       pokePush: false,
       pokeFound: false,
-      loadingList: true,
+      Loading: true,
       allowLoadingFade: true,
       disableClick: 0,
       pokeApi: true,
@@ -112,6 +105,9 @@ export default {
     this.sectionGuessHeight = this.$refs.sectionGuess.offsetHeight;
   },
   computed: {
+    mobile() {
+      return window.screen.width < 800 ? true : false;
+    },
     clickedPokemon() {
       return this.pokeList.filter((p) => p.selected);
     },
@@ -159,7 +155,7 @@ export default {
     },
 
     async getPokemon() {
-      this.loadingList = true;
+      this.Loading = true;
       this.allowLoadingFade = true;
       try {
         const result = await axios({
@@ -190,7 +186,7 @@ export default {
         });
         this.pokeList = result.data.data.pokemon_v2_pokemon;
         setTimeout(() => {
-          this.loadingList = false;
+          this.Loading = false;
         }, 2000);
         setTimeout(() => {
           this.allowLoadingFade = false;
@@ -283,7 +279,7 @@ export default {
 }
 .loading {
   position: fixed;
-  z-index: 10000000;
+  z-index: 1000;
   width: 100vw;
   height: 100vh;
   background: white;
@@ -291,9 +287,11 @@ export default {
   justify-content: center;
   align-items: center;
 }
+.loading-enter-active,
 .loading-leave-active {
   transition: opacity 0.8s 1s ease;
 }
+.loading-enter-from,
 .loading-leave-to {
   opacity: 0;
 }
@@ -307,5 +305,8 @@ export default {
   width: 100%;
   align-items: center;
   justify-content: center;
+}
+.mobile {
+  flex-direction: column;
 }
 </style>
