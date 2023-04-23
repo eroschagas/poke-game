@@ -146,7 +146,7 @@ export default {
       this.Loading = true;
       this.allowLoadingFade = true;
       try {
-        const result = await axios({
+        const response = await axios({
           method: 'POST',
           url: 'https://beta.pokeapi.co/graphql/v1beta',
           data: {
@@ -172,7 +172,8 @@ export default {
               }`,
           },
         });
-        this.pokeList = result.data.data.pokemon_v2_pokemon;
+        this.pokeList = response.data.data.pokemon_v2_pokemon;
+        console.log(response);
         setTimeout(() => {
           this.Loading = false;
         }, 2000);
@@ -197,19 +198,33 @@ export default {
             var jsonOther = JSON.parse(
               this.pokeList[id].pokemon_v2_pokemonsprites[0].sprites
             )[type][second_type].front_default;
-            return jsonOther;
+            var imgPathOther = `https://raw.githubusercontent.com/PokeAPI${jsonOther.replace(
+              '/media',
+              '/sprites/master'
+            )}`;
+
+            return imgPathOther;
 
           case 'versions':
             var jsonVersions = JSON.parse(
               this.pokeList[id].pokemon_v2_pokemonsprites[0].sprites
             )[type][second_type][third_type].front_default;
-            return jsonVersions;
+            var imgPathVersions = `https://raw.githubusercontent.com/PokeAPI${jsonVersions.replace(
+              '/media',
+              '/sprites/master'
+            )}`;
+
+            return imgPathVersions;
 
           default:
             var jsonDefault = JSON.parse(
               this.pokeList[id - 1].pokemon_v2_pokemonsprites[0].sprites
             )[type];
-            return jsonDefault;
+            var imgPathDefault = `https://raw.githubusercontent.com/PokeAPI${jsonDefault.replace(
+              '/media',
+              '/sprites/master'
+            )}`;
+            return imgPathDefault;
         }
       }
     },
