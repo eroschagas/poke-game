@@ -1,10 +1,10 @@
 <template>
   <div class="home">
     <!-- <div v-if="!mobile" class="menu">menu</div> -->
-    <div class="console" @click="teste">console.log</div>
+    <!-- <div class="console" @click="teste">console.log</div> -->
     <PokeApiError :pokeApi="pokeApi" />
     <transition name="loading">
-      <div v-if="Loading" class="loading"><LoadingIcon size="50" /></div>
+      <LoadingPage v-if="Loading" />
     </transition>
     <transition class="guess-wrapper" name="loading">
       <div v-if="!Loading" :class="['container']">
@@ -49,8 +49,8 @@ import axios from 'axios';
 import PokeList from './templates/PokeList.vue';
 import PokeChosen from './templates/PokeChosen.vue';
 import PokeApiError from './components/PokeApiError.vue';
-import LoadingIcon from './components/LoadingIcon.vue';
 import PokedexContainer from './templates/PokedexContainer.vue';
+import LoadingPage from './components/LoadingPage.vue';
 
 export default {
   name: 'App',
@@ -58,8 +58,8 @@ export default {
     PokeList,
     PokeChosen,
     PokeApiError,
-    LoadingIcon,
     PokedexContainer,
+    LoadingPage,
   },
   data() {
     return {
@@ -275,24 +275,6 @@ export default {
   position: fixed;
   cursor: pointer;
 }
-.loading {
-  position: fixed;
-  z-index: 1000;
-  width: 100vw;
-  height: 100vh;
-  background: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.loading-enter-active,
-.loading-leave-active {
-  transition: opacity 0.8s 1s ease;
-}
-.loading-enter-from,
-.loading-leave-to {
-  opacity: 0;
-}
 .container {
   // margin-top: 60px;
   display: flex;
@@ -329,5 +311,13 @@ export default {
   width: 100%;
   height: 100%;
   overflow: auto;
+}
+.loading-enter-active,
+.loading-leave-active {
+  transition: opacity 0.8s 1s ease;
+}
+.loading-enter-from,
+.loading-leave-to {
+  opacity: 0;
 }
 </style>

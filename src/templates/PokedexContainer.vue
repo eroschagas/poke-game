@@ -58,7 +58,7 @@
 import PokedexScreenName from '@/components/PokedexScreenName.vue';
 import PokedexScreenImage from '../components/PokedexScreenImage.vue';
 import PokedexStats from '../components/PokedexStats.vue';
-
+/* eslint-disable */
 export default {
   name: 'PokedexContainer',
   components: {
